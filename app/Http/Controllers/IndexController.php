@@ -6,6 +6,8 @@ use App\User;
 use App\Role;
 use App\Permission;
 use App\Organization;
+use Illuminate\Http\Request;
+use Input;
 
 class IndexController extends Controller
 {
@@ -64,5 +66,13 @@ class IndexController extends Controller
     public function getUsersByOrg($id){
         $users = User::where('org_id','=',$id)->get();
         return array('data'=>$users);;
+    }
+    public function postUserStoreByOrg(Request $request){
+    	$this->validate($request, [
+				'name' => 'required|unique:users|max:255',
+				'email' => 'required',
+		]);
+		$user = new User;
+		$user->name = Input::get('name');
     }
 }
