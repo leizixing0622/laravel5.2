@@ -34,7 +34,7 @@ class IndexController extends Controller
     	$organization -> pid = $id;
     	$organization -> name = $name;
     	if($organization->save()){
-    		return "success";
+    		return array("newTreeNode"=>$organization);
     	}else{
     		return "error";
     	};
@@ -67,12 +67,16 @@ class IndexController extends Controller
         $users = User::where('org_id','=',$id)->get();
         return array('data'=>$users);;
     }
-    public function postUserStoreByOrg(Request $request){
-    	$this->validate($request, [
-				'name' => 'required|unique:users|max:255',
-				'email' => 'required',
-		]);
-		$user = new User;
-		$user->name = Input::get('name');
+    public function postUserStoreByOrg(Request $request, $org_id){
+    	$user = new User;
+    	$user->name = $request->get('name');
+    	$user->email = $request->get('email');
+    	$user->password = $request->get('password');
+    	$user->org_id = $org_id;
+    	if($user->save()){
+    		return array("data"=>"success");
+    	}else{
+	    	return array("data"=>"error");
+    	}
     }
 }

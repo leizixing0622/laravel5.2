@@ -11,13 +11,18 @@
 	<link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/demo.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/zTreeStyle/zTreeStyle.css') }}" rel="stylesheet">
+	<link href="{{ asset('/css/toastr.css') }}" rel="stylesheet">
+	<link href="{{ asset('/css/common.css') }}" rel="stylesheet">
 	<script type="text/javascript" src="{{ asset('/js/jquery.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/bootstrap.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/jquery.dataTables.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('/js/dataTables_zh.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/common.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/js/dataTables_zh.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/jquery.ztree.core.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/jquery.ztree.exedit.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/js/toastr.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/js/jquery.validate.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/js/messages_zh.js') }}"></script>
 	<!-- Fonts -->
 	
 

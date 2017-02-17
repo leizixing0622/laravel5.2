@@ -50,38 +50,39 @@
         <h4 class="modal-title">添加新用户</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal">
+        <form class="form-horizontal" id="userForm">
 		  <div class="form-group">
 		    <label for="org" class="col-sm-2 control-label">所属组织</label>
 		    <div class="col-sm-10">
-		      <input readonly type="text" class="form-control" name="org" value="">
+		      <input readonly type="text" class="form-control" id="org" name="org" value="">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label for="name" class="col-sm-2 control-label">昵称</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" name="name">
+		      <input type="text" class="form-control" name="name" id="name">
 		    </div>
 		    <label for="email" class="col-sm-2 control-label">邮箱</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" name="email">
+		      <input type="text" class="form-control" name="email" id="email">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label for="password" class="col-sm-2 control-label">密码</label>
 		    <div class="col-sm-4">
-		      <input type="password" class="form-control" name="password">
+		      <input type="password" class="form-control" name="password" id="password">
 		    </div>
 		    <label for="password2" class="col-sm-2 control-label">确认密码</label>
 		    <div class="col-sm-4">
-		      <input type="password" class="form-control" id="password2">
+		      <input type="password" class="form-control" name="confirm_password" id="confirm_password">
 		    </div>
 		  </div>
+	      <button id="save" type="submit" class="btn btn-primary" onclick="userStore()" style="display:none;"></button>
 		</form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-primary" onclick="userStore()">保存</button>
+        <button type="button" class="btn btn-info" id="fakeSave" onclick="forUserStore()">保存</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -162,7 +163,7 @@ function addHoverDom(treeId, treeNode) {
   
     if (btn) btn.bind("click", function(){  
         var zTree = $.fn.zTree.getZTreeObj("tree");  
-        var name='new node';  
+        var name='新节点'; 
         $.ajax({
     		url: '{{ URL("index/add-org/") }}/'+treeNode.id+'/'+name,
     		type: 'POST',
@@ -171,6 +172,7 @@ function addHoverDom(treeId, treeNode) {
             processData: false,  
     		success:function(e){
     				console.log(e);
+			        zTree.addNodes(treeNode, {id:(e.newTreeNode.id), parentid:e.newTreeNode.pid, name:e.newTreeNode.name}); 
     			},
     		error:function(msg){
     				console.log(msg);
@@ -249,6 +251,50 @@ function userCreate() {
 	$('#myModal input[name = "org"]').val(org_name);
 	$('#myModal').modal();	
 }
+function forUserStore(){
+	$("#save").click();
+}
+function userStore() {
+	$("#userForm").validate({
+	    rules: {
+		      name: {
+		        required: true,
+		      },
+		      email: {
+		        required: true,
+		        email: true
+		      },
+		      password: {
+		        required: true,
+		        minlength: 5
+		      },
+		      confirm_password: {
+		        required: true,
+		        minlength: 5,
+		        equalTo: "#password"
+		      }
+	    },
+	    submitHandler:function(form){
+			var data = $('#userForm').serializeObject();
+			$.ajax({
+				dataType: 'json',
+				url: '{{ URL("index/user-store-by-org") }}' + '/' + org_id,
+				type: 'POST',
+				data: data,
+				async: false,  
+				success:function(e){
+						console.log(e.data);
+						$('#myModal').modal('hide');
+						ajaxTable.ajax.reload();
+						toastr.info('添加成功')
+					},
+				error:function(msg){
+						console.log(msg.data);
+					}
+			});
+		} 
+	});
+}
 	$(function(){
 		$.ajax({
 			url: '{{ URL("index/all-org/") }}',
@@ -257,7 +303,7 @@ function userCreate() {
 	        contentType: false,  
 	        processData: false,  
 			success:function(e){
-					console.log(e);
+					//console.log(e);
 				},
 			error:function(msg){
 					console.log(msg);
