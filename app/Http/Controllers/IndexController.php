@@ -67,16 +67,23 @@ class IndexController extends Controller
         $users = User::where('org_id','=',$id)->get();
         return array('data'=>$users);;
     }
+    public function getUserById($id){
+    	$user = User::find($id);
+    	return $user;
+    }
     public function postUserStoreByOrg(Request $request, $org_id){
     	$user = new User;
-    	$user->name = $request->get('name');
-    	$user->email = $request->get('email');
-    	$user->password = $request->get('password');
+    	$user->name = $request->input('name');
+    	$user->email = $request->input('email');
+    	$user->password = bcrypt($request->input('password'));
     	$user->org_id = $org_id;
     	if($user->save()){
     		return array("data"=>"success");
     	}else{
 	    	return array("data"=>"error");
     	}
+    }
+    public function postUserUpdateById(Request $request, $id){
+    	
     }
 }

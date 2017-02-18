@@ -51,6 +51,7 @@
       </div>
       <div class="modal-body">
         <form class="form-horizontal" id="userForm">
+        	<input type="hidden" name="type" id="type" value="1">
 		  <div class="form-group">
 		    <label for="org" class="col-sm-2 control-label">所属组织</label>
 		    <div class="col-sm-10">
@@ -248,6 +249,7 @@ function zTreeOnClick(event, treeId, treeNode){
 	ajaxTable.ajax.url('{{URL("index/users-by-org")}}'+'/'+treeNode.id).load();
 }
 function userCreate() {
+	$('#myModal input[name = "type"]').val(1);
 	$('#myModal input[name = "org"]').val(org_name);
 	$('#myModal').modal();	
 }
@@ -276,25 +278,63 @@ function userStore() {
 	    },
 	    submitHandler:function(form){
 			var data = $('#userForm').serializeObject();
-			$.ajax({
-				dataType: 'json',
-				url: '{{ URL("index/user-store-by-org") }}' + '/' + org_id,
-				type: 'POST',
-				data: data,
-				async: false,  
-				success:function(e){
-						console.log(e.data);
-						$('#myModal').modal('hide');
-						ajaxTable.ajax.reload();
-						toastr.info('添加成功')
-					},
-				error:function(msg){
-						console.log(msg.data);
-					}
-			});
+			if($('#myModal input[name = "type"]').val() == 1){
+				$.ajax({
+					dataType: 'json',
+					url: '{{ URL("index/user-store-by-org") }}' + '/' + org_id,
+					type: 'POST',
+					data: data,
+					async: false,  
+					success:function(e){
+							console.log(e.data);
+							$('#myModal').modal('hide');
+							ajaxTable.ajax.reload();
+							toastr.info('添加成功')
+						},
+					error:function(msg){
+							console.log(msg.responseText);
+						}
+				});
+			}else{
+				$.ajax({
+					dataType: 'json',
+					url: '{{ URL("index/user-store-by-org") }}' + '/' + org_id,
+					type: 'POST',
+					data: data,
+					async: false,  
+					success:function(e){
+							console.log(e.data);
+							$('#myModal').modal('hide');
+							ajaxTable.ajax.reload();
+							toastr.info('添加成功')
+						},
+					error:function(msg){
+							console.log(msg.responseText);
+						}
+				});
+			}
 		} 
 	});
 }
+//用户编辑按钮
+$("#example").delegate('.userUpdate','click',function(){
+	//alert($(this).attr("data-id"));
+	$.ajax({
+		url: '{{ URL("index/user-by-id") }}'+'/'+$(this).attr("data-id"),
+		type: 'GET',
+		async: false,  
+		success:function(e){
+				$('#myModal input[name = "org"]').val(org_name);
+				$('#myModal input[name = "type"]').val(2);
+				$('#myModal input[name = "name"]').val(e.name);
+				$('#myModal input[name = "email"]').val(e.email);
+				$('#myModal').modal();
+			},
+		error:function(msg){
+				console.log(msg);
+			}
+	});
+});
 	$(function(){
 		$.ajax({
 			url: '{{ URL("index/all-org/") }}',
@@ -327,7 +367,7 @@ function userStore() {
                 { "data": null }
             ],
             "fnRowCallback" : function(nRow, aData, iDisplayIndex) {
-                
+            	$('td:eq(5)', nRow).find(".userUpdate").attr("data-id",aData.id);
             },
             "lengthChange":false,
             "aoColumnDefs":[
@@ -336,7 +376,7 @@ function userStore() {
                     "class": "but_xq",
                     "data": null,
                     "bSortable": false,
-                    "defaultContent": "<a class=\"update\">编辑</a>&nbsp;&nbsp;&nbsp;<a class=\"delete\">删除</a>"
+                    "defaultContent": "<a class=\"userUpdate\">编辑</a>&nbsp;&nbsp;&nbsp;<a class=\"delete\">删除</a>"
                 }
             ],
         } );
