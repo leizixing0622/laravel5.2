@@ -106,7 +106,7 @@ var setting = {
 		async: {
 			enable: true,
 			type: "GET",
-			url: "{{ URL("index/all-org/") }}",
+			url: "{{ URL("admin/organization/all") }}",
 			autoParam: ["id", "name"]
 		},
 		data: {
@@ -139,7 +139,7 @@ function addHoverDom(treeId, treeNode) {
         var zTree = $.fn.zTree.getZTreeObj("tree");  
         var name='新节点'; 
         $.ajax({
-    		url: '{{ URL("index/add-org/") }}/'+treeNode.id+'/'+name,
+    		url: '{{ URL("admin/organization/store") }}/'+treeNode.id+'/'+name,
     		type: 'POST',
     		async: false,  
             contentType: false,  
@@ -161,7 +161,7 @@ function removeHoverDom(treeId, treeNode) {
 function onRename(e, treeId, treeNode, isCancel) {  
     console.log(treeNode);
 	$.ajax({
-		url: '{{ URL("index/update-org/") }}/'+treeNode.id+'/'+treeNode.name,
+		url: '{{ URL("admin/organization/update") }}/'+treeNode.id+'/'+treeNode.name,
 		type: 'POST',
 		async: false,  
         contentType: false,  
@@ -185,7 +185,7 @@ function zTreeBeforeRemove(treeId, treeNode) {
 
 function onRemove(e, treeId, treeNode) {  
 	$.ajax({
-		url: '{{ URL("index/delete-org/") }}/'+treeNode.id,
+		url: '{{ URL("admin/organization/delete") }}/'+treeNode.id,
 		type: 'POST',
 		async: false,  
         contentType: false,  
@@ -202,7 +202,7 @@ function onRemove(e, treeId, treeNode) {
 function zTreeOnClick(event, treeId, treeNode){
 	org_id = treeNode.id;
 	org_name = treeNode.name;
-	ajaxTable.ajax.url('{{URL("index/users-by-org")}}'+'/'+treeNode.id).load();
+	ajaxTable.ajax.url('{{URL("admin/user/findByOrg")}}'+'/'+treeNode.id).load();
 }
 function userCreate() {
 	$('#myModal input').val("");
@@ -238,7 +238,7 @@ function userStore() {
 			if($('#myModal input[name = "type"]').val() == 1){
 				$.ajax({
 					dataType: 'json',
-					url: '{{ URL("index/user-store-by-org") }}' + '/' + org_id,
+					url: '{{ URL("admin/user/storeByOrg") }}' + '/' + org_id,
 					type: 'POST',
 					data: data,
 					async: false,  
@@ -261,7 +261,7 @@ function userStore() {
 			}else if($('#myModal input[name = "type"]').val() == 2){
 				$.ajax({
 					dataType: 'json',
-					url: '{{ URL("index/user-update-by-id") }}' + '/' + user_id,
+					url: '{{ URL("admin/user/update") }}' + '/' + user_id,
 					type: 'POST',
 					data: data,
 					async: false,  
@@ -283,7 +283,7 @@ function userStore() {
 $("#example").delegate('.userUpdate','click',function(){
 	//alert($(this).attr("data-id"));
 	$.ajax({
-		url: '{{ URL("index/user-by-id") }}'+'/'+$(this).attr("data-id"),
+		url: '{{ URL("admin/user/findById") }}'+'/'+$(this).attr("data-id"),
 		type: 'GET',
 		async: false,  
 		success:function(e){
@@ -306,7 +306,7 @@ $("#example").delegate('.userDelete','click',function(){
 	//alert($(this).attr("data-id"));
 	if(confirm("确认要删除用户"+$(this).attr("data-id")+"吗？")){
 		$.ajax({
-			url: '{{ URL("index/user-delete-by-id") }}'+'/'+$(this).attr("data-id"),
+			url: '{{ URL("admin/user/delete") }}'+'/'+$(this).attr("data-id"),
 			type: 'GET',
 			async: false,  
 			success:function(e){
@@ -321,28 +321,15 @@ $("#example").delegate('.userDelete','click',function(){
 	}
 });
 	$(function(){
-		$.ajax({
-			url: '{{ URL("index/all-org/") }}',
-			type: 'GET',
-			async: false,  
-	        contentType: false,  
-	        processData: false,  
-			success:function(e){
-					//console.log(e);
-				},
-			error:function(msg){
-					console.log(msg);
-				}
-		});
 		zTreeObj = $.fn.zTree.init($(".ztree"), setting).expandAll(true);
         setTimeout(function(){  
-                        expandAll("tree");  
-         			},500);//延迟加载  
+	        expandAll("tree");  
+		},500);//延迟加载  
     	});
                             
         ajaxTable = $('#example').DataTable( {
             "type":"GET",
-            "ajax": '{{ URL("index/users-by-org/") }}'+'/'+org_id,
+            "ajax": '{{ URL("admin/user/findByOrg") }}'+'/'+org_id,
             "columns": [
                 { "data": "id"},
                 { "data": "name" },
