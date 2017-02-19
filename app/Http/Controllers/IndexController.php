@@ -72,18 +72,40 @@ class IndexController extends Controller
     	return $user;
     }
     public function postUserStoreByOrg(Request $request, $org_id){
-    	$user = new User;
+    	$email = $request->input('email');
+    	$result = User::where('email','=',$email)->get();
+    	if($result->isEmpty()){
+    		$user = new User;
+	    	$user->name = $request->input('name');
+	    	$user->email = $email;
+	    	$user->password = bcrypt($request->input('password'));
+	    	$user->org_id = $org_id;
+    		if($user->save()){
+	    		return array("data"=> 1);
+	    	}else{
+		    	return array("data"=>"2");
+	    	}
+    	}else{
+    		return array("data"=> -1);
+    	}
+    }
+    public function postUserUpdateById(Request $request, $id){
+    	$user = User::find($id);
     	$user->name = $request->input('name');
     	$user->email = $request->input('email');
     	$user->password = bcrypt($request->input('password'));
-    	$user->org_id = $org_id;
     	if($user->save()){
     		return array("data"=>"success");
     	}else{
 	    	return array("data"=>"error");
     	}
     }
-    public function postUserUpdateById(Request $request, $id){
-    	
+    public function getUserDeleteById($id){
+    	$user = User::find($id);
+    	if($user->delete()){
+    		return array("data"=>"success");
+    	}else{
+	    	return array("data"=>"error");
+    	}
     }
 }

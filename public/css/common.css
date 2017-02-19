@@ -9,3 +9,6 @@ label.error {
 }
 label.checked {
 }
+a:hover{
+	cursor:pointer;	
+}

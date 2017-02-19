@@ -91,7 +91,7 @@
 <script type="text/javascript">
 var zTreeObj;
 var curStatus = "init", curAsyncCount = 0, goAsync = false; 
-var org_id = 1,org_name = "总经理";
+var org_id = 1,org_name = "总经理",user_id = 0;
 var setting = {
 		view: {
 			addHoverDom: addHoverDom, 
@@ -158,7 +158,7 @@ function addHoverDom(treeId, treeNode) {
     var sObj = $("#" + treeNode.tId + "_span"); 
     if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;  
   
-    var addStr = "<span class='button add' id='addBtn_" + treeNode.tId + "' title='add node' onfocus='this.blur();'></span>"; //������Ӱ�ť  
+    var addStr = "<span class='button add' id='addBtn_" + treeNode.tId + "' title='add node' onfocus='this.blur();'></span>";   
     sObj.after(addStr); 
     var btn = $("#addBtn_"+treeNode.tId);  
   
@@ -249,6 +249,7 @@ function zTreeOnClick(event, treeId, treeNode){
 	ajaxTable.ajax.url('{{URL("index/users-by-org")}}'+'/'+treeNode.id).load();
 }
 function userCreate() {
+	$('#myModal input').val("");
 	$('#myModal input[name = "type"]').val(1);
 	$('#myModal input[name = "org"]').val(org_name);
 	$('#myModal').modal();	
@@ -287,18 +288,24 @@ function userStore() {
 					async: false,  
 					success:function(e){
 							console.log(e.data);
-							$('#myModal').modal('hide');
-							ajaxTable.ajax.reload();
-							toastr.info('添加成功')
+							if(e.data == -1){
+								toastr.info("该邮箱已经被注册过");
+								$('#myModal input[name = "email"]').val("");
+							}else if(e.data == 1){
+								console.log(e.data);
+								$('#myModal').modal('hide');
+								ajaxTable.ajax.reload();
+								toastr.info('添加成功')
+							}
 						},
 					error:function(msg){
 							console.log(msg.responseText);
 						}
 				});
-			}else{
+			}else if($('#myModal input[name = "type"]').val() == 2){
 				$.ajax({
 					dataType: 'json',
-					url: '{{ URL("index/user-store-by-org") }}' + '/' + org_id,
+					url: '{{ URL("index/user-update-by-id") }}' + '/' + user_id,
 					type: 'POST',
 					data: data,
 					async: false,  
@@ -306,7 +313,7 @@ function userStore() {
 							console.log(e.data);
 							$('#myModal').modal('hide');
 							ajaxTable.ajax.reload();
-							toastr.info('添加成功')
+							toastr.info('修改成功')
 						},
 					error:function(msg){
 							console.log(msg.responseText);
@@ -324,16 +331,38 @@ $("#example").delegate('.userUpdate','click',function(){
 		type: 'GET',
 		async: false,  
 		success:function(e){
+				user_id = e.id;
 				$('#myModal input[name = "org"]').val(org_name);
 				$('#myModal input[name = "type"]').val(2);
 				$('#myModal input[name = "name"]').val(e.name);
 				$('#myModal input[name = "email"]').val(e.email);
+				$('#myModal input[name = "password"]').val("");
+				$('#myModal input[name = "confirm_password"]').val("");
 				$('#myModal').modal();
 			},
 		error:function(msg){
 				console.log(msg);
 			}
 	});
+});
+//用户删除按钮
+$("#example").delegate('.userDelete','click',function(){
+	//alert($(this).attr("data-id"));
+	if(confirm("确认要删除用户"+$(this).attr("data-id")+"吗？")){
+		$.ajax({
+			url: '{{ URL("index/user-delete-by-id") }}'+'/'+$(this).attr("data-id"),
+			type: 'GET',
+			async: false,  
+			success:function(e){
+					console.log(e);
+					ajaxTable.ajax.reload();					
+					toastr.info("删除成功");
+				},
+			error:function(msg){
+					console.log(msg);
+				}
+		});
+	}
 });
 	$(function(){
 		$.ajax({
@@ -368,6 +397,7 @@ $("#example").delegate('.userUpdate','click',function(){
             ],
             "fnRowCallback" : function(nRow, aData, iDisplayIndex) {
             	$('td:eq(5)', nRow).find(".userUpdate").attr("data-id",aData.id);
+            	$('td:eq(5)', nRow).find(".userDelete").attr("data-id",aData.id);
             },
             "lengthChange":false,
             "aoColumnDefs":[
@@ -376,7 +406,7 @@ $("#example").delegate('.userUpdate','click',function(){
                     "class": "but_xq",
                     "data": null,
                     "bSortable": false,
-                    "defaultContent": "<a class=\"userUpdate\">编辑</a>&nbsp;&nbsp;&nbsp;<a class=\"delete\">删除</a>"
+                    "defaultContent": "<a class=\"userUpdate\">编辑</a>&nbsp;&nbsp;&nbsp;<a class=\"userDelete\">删除</a>"
                 }
             ],
         } );
