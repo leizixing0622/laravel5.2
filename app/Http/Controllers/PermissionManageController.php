@@ -28,4 +28,34 @@ class PermissionManageController extends Controller
     	$result = Permission::all();
     	return $result;
     }
+    
+    public function getAddPermission($id,$name){
+    	$permission = new Permission;
+    	$permission -> pid = $id;
+    	$permission -> display_name = $name;
+    	if($permission->save()){
+    		return array("newTreeNode"=>$permission);
+    	}else{
+    		return "error";
+    	};
+    }
+    
+    public function postUpdatePermission($id,$name){
+    	$permission = Permission::find($id);
+    	$permission -> display_name = $name;
+    	if($permission->update()){
+    		return "success";
+    	}else{
+    		return "error";
+    	};
+    }
+    
+    public function postDeletePermission($id){
+    	$permission = Permission::find($id);
+    	if($permission->delete()){
+    		return "success";
+    	}else{
+    		return "error";
+    	};
+    }
 }

@@ -6,7 +6,7 @@
   	<div class="col-md-3">
   		<div class="panel panel-info">
   		      <div class="panel-heading">
-			    <h3 class="panel-title">菜单管理</h3>
+			    <h3 class="panel-title">角色管理</h3>
 			  </div>
 			  <div class="panel-body">
 			    	<div id="tree" class="ztree">  
@@ -34,7 +34,7 @@ var setting = {
 		async: {
 			enable: true,
 			type: "GET",
-			url: "{{ URL("permissions/all-permissions/") }}",
+			url: "{{ URL("roles/all-roles") }}",
 			autoParam: ["id", "name"]
 		},
 		data: {
@@ -43,9 +43,6 @@ var setting = {
 				idKey: "id",
 				pIdKey: "pid",
 				rootPId: 0,
-			},
-			key: {
-				name: "display_name"
 			}
 		},
 		callback: { 
@@ -55,9 +52,6 @@ var setting = {
             beforeAsync: beforeAsync,  
            	onAsyncSuccess: onAsyncSuccess,
         }  
-};
-function removeHoverDom(treeId, treeNode) {  
-    $("#addBtn_"+treeNode.tId).unbind().remove();  
 };
 function addHoverDom(treeId, treeNode) {  
     var sObj = $("#" + treeNode.tId + "_span"); 
@@ -71,14 +65,14 @@ function addHoverDom(treeId, treeNode) {
         var zTree = $.fn.zTree.getZTreeObj("tree");  
         var name='新节点'; 
         $.ajax({
-    		url: '{{ URL("permissions/add-permission/") }}/'+treeNode.id+'/'+name,
+    		url: '{{ URL("roles/add-role/") }}/'+treeNode.id+'/'+name,
     		type: 'GET',
     		async: false,  
             contentType: false,  
             processData: false,  
     		success:function(e){
     				console.log(e);
-			        zTree.addNodes(treeNode, {id:(e.newTreeNode.id), parentid:e.newTreeNode.pid, name:e.newTreeNode.display_name}); 
+			        zTree.addNodes(treeNode, {id:(e.newTreeNode.id), parentid:e.newTreeNode.pid, name:e.newTreeNode.name}); 
     			},
     		error:function(msg){
     				console.log(msg.responseText);
@@ -86,10 +80,13 @@ function addHoverDom(treeId, treeNode) {
     	}); 
     });  
 };
+function removeHoverDom(treeId, treeNode) {  
+    $("#addBtn_"+treeNode.tId).unbind().remove();  
+};
 function onRename(e, treeId, treeNode, isCancel) {  
     console.log(treeNode);
 	$.ajax({
-		url: '{{ URL("permissions/update-permission/") }}/'+treeNode.id+'/'+treeNode.display_name,
+		url: '{{ URL("roles/update-role/") }}/'+treeNode.id+'/'+treeNode.name,
 		type: 'POST',
 		async: false,  
         contentType: false,  
@@ -105,13 +102,13 @@ function onRename(e, treeId, treeNode, isCancel) {
 function zTreeBeforeRemove(treeId, treeNode) {
 	var zTree = $.fn.zTree.getZTreeObj("tree");  
     zTree.selectNode(treeNode);  
-    return confirm("确认删除" + treeNode.display_name + "吗？"); 
+    return confirm("确认删除" + treeNode.name + "吗？"); 
 }
 
 
 function onRemove(e, treeId, treeNode) {  
 	$.ajax({
-		url: '{{ URL("permissions/delete-permission/") }}/'+treeNode.id,
+		url: '{{ URL("roles/delete-role/") }}/'+treeNode.id,
 		type: 'POST',
 		async: false,  
         contentType: false,  
@@ -128,8 +125,8 @@ function onRemove(e, treeId, treeNode) {
 	$(function(){
 		zTreeObj = $.fn.zTree.init($(".ztree"), setting).expandAll(true);
 		setTimeout(function(){  
-                    expandAll("tree");  
-     			},500);//延迟加载  
-		});
+            expandAll("tree");  
+		},500);//延迟加载  
+	});
 </script>
 @endsection
