@@ -34,7 +34,7 @@ var setting = {
 		async: {
 			enable: true,
 			type: "GET",
-			url: "{{ URL("permissions/all-permissions/") }}",
+			url: "{{ URL("admin/permission/all") }}",
 			autoParam: ["id", "name"]
 		},
 		data: {
@@ -71,7 +71,7 @@ function addHoverDom(treeId, treeNode) {
         var zTree = $.fn.zTree.getZTreeObj("tree");  
         var name='新节点'; 
         $.ajax({
-    		url: '{{ URL("permissions/add-permission/") }}/'+treeNode.id+'/'+name,
+    		url: '{{ URL("admin/permission/store") }}/'+treeNode.id+'/'+name,
     		type: 'GET',
     		async: false,  
             contentType: false,  
@@ -89,7 +89,7 @@ function addHoverDom(treeId, treeNode) {
 function onRename(e, treeId, treeNode, isCancel) {  
     console.log(treeNode);
 	$.ajax({
-		url: '{{ URL("permissions/update-permission/") }}/'+treeNode.id+'/'+treeNode.display_name,
+		url: '{{ URL("admin/permission/update") }}/'+treeNode.id+'/'+treeNode.display_name,
 		type: 'POST',
 		async: false,  
         contentType: false,  
@@ -111,8 +111,8 @@ function zTreeBeforeRemove(treeId, treeNode) {
 
 function onRemove(e, treeId, treeNode) {  
 	$.ajax({
-		url: '{{ URL("permissions/delete-permission/") }}/'+treeNode.id,
-		type: 'POST',
+		url: '{{ URL("admin/permission/delete") }}/'+treeNode.id,
+		type: 'GET',
 		async: false,  
         contentType: false,  
         processData: false,  
@@ -128,8 +128,8 @@ function onRemove(e, treeId, treeNode) {
 	$(function(){
 		zTreeObj = $.fn.zTree.init($(".ztree"), setting).expandAll(true);
 		setTimeout(function(){  
-                    expandAll("tree");  
-     			},500);//延迟加载  
+                expandAll("tree");  
+ 			},500);//延迟加载  
 		});
 </script>
 @endsection

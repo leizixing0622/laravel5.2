@@ -34,7 +34,7 @@ var setting = {
 		async: {
 			enable: true,
 			type: "GET",
-			url: "{{ URL("roles/all-roles") }}",
+			url: "{{ URL("admin/role/all") }}",
 			autoParam: ["id", "name"]
 		},
 		data: {
@@ -65,7 +65,7 @@ function addHoverDom(treeId, treeNode) {
         var zTree = $.fn.zTree.getZTreeObj("tree");  
         var name='新节点'; 
         $.ajax({
-    		url: '{{ URL("roles/add-role/") }}/'+treeNode.id+'/'+name,
+    		url: '{{ URL("admin/role/store") }}/'+treeNode.id+'/'+name,
     		type: 'GET',
     		async: false,  
             contentType: false,  
@@ -86,7 +86,7 @@ function removeHoverDom(treeId, treeNode) {
 function onRename(e, treeId, treeNode, isCancel) {  
     console.log(treeNode);
 	$.ajax({
-		url: '{{ URL("roles/update-role/") }}/'+treeNode.id+'/'+treeNode.name,
+		url: '{{ URL("admin/role/update") }}/'+treeNode.id+'/'+treeNode.name,
 		type: 'POST',
 		async: false,  
         contentType: false,  
@@ -108,8 +108,8 @@ function zTreeBeforeRemove(treeId, treeNode) {
 
 function onRemove(e, treeId, treeNode) {  
 	$.ajax({
-		url: '{{ URL("roles/delete-role/") }}/'+treeNode.id,
-		type: 'POST',
+		url: '{{ URL("admin/role/delete") }}/'+treeNode.id,
+		type: 'GET',
 		async: false,  
         contentType: false,  
         processData: false,  

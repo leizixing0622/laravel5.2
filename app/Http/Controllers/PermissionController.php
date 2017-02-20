@@ -8,28 +8,24 @@ use App\Organization;
 use Illuminate\Http\Request;
 use Input;
 
-class PermissionManageController extends Controller
+class PermissionController extends Controller
 {
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     
-    public function getIndex(){
+    public function index(){
     	return view("admin/permissions");
     }
     
-    public function getAllPermissions(){
+    public function all(){
     	$result = Permission::all();
     	return $result;
     }
     
-    public function getAddPermission($id,$name){
+    public function store($id,$name){
     	$permission = new Permission;
     	$permission -> pid = $id;
     	$permission -> display_name = $name;
@@ -40,7 +36,7 @@ class PermissionManageController extends Controller
     	};
     }
     
-    public function postUpdatePermission($id,$name){
+    public function update($id,$name){
     	$permission = Permission::find($id);
     	$permission -> display_name = $name;
     	if($permission->update()){
@@ -50,7 +46,7 @@ class PermissionManageController extends Controller
     	};
     }
     
-    public function postDeletePermission($id){
+    public function delete($id){
     	$permission = Permission::find($id);
     	if($permission->delete()){
     		return "success";

@@ -49,8 +49,8 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
 					<li><a href="{{ asset('admin/index') }}">后台首页</a></li>
-					<li><a href="{{ asset('/permissions') }}">菜单管理</a></li>
-					<li><a href="{{ asset('/roles') }}">角色管理</a></li>
+					<li><a href="{{ asset('admin/permission/index') }}">菜单管理</a></li>
+					<li><a href="{{ asset('admin/role/index') }}">角色管理</a></li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">

@@ -8,28 +8,24 @@ use App\Organization;
 use Illuminate\Http\Request;
 use Input;
 
-class RoleManageController extends Controller
+class RoleController extends Controller
 {
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     
-    public function getIndex(){
+    public function index(){
     	return view("admin/roles");
     }
     
-     public function getAllRoles(){
+     public function all(){
     	$result = Role::all();
     	return $result;
     }
     
-    public function getAddRole($id,$name){
+    public function store($id,$name){
     	$role = new Role;
     	$role -> pid = $id;
     	$role -> name = $name;
@@ -40,7 +36,7 @@ class RoleManageController extends Controller
     	};
     }
     
-    public function postUpdateRole($id,$name){
+    public function update($id,$name){
     	$role = Role::find($id);
     	$role -> name = $name;
     	if($role->update()){
@@ -50,7 +46,7 @@ class RoleManageController extends Controller
     	};
     }
     
-    public function postDeleteRole($id){
+    public function delete($id){
     	$role = Role::find($id);
     	if($role->delete()){
     		return "success";

@@ -1,33 +1,10 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Routes File
-|--------------------------------------------------------------------------
-|
-| Here is where you will register all of the routes in an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
-
-Route::get('/', function () {
-    return view('home');
-});
-
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| This route group applies the "web" middleware group to every route
-| it contains. The "web" middleware group is defined in your HTTP
-| kernel and includes session state, CSRF protection, and more.
-|
-*/
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
-    Route::get('/home', 'HomeController@index');
+	Route::get ('/', 'HomeController@index');
+});
+Route::group(['middleware' => ['web','auth']], function () {
     //组织有关路由
     Route::get('admin/index',['as'=>'admin.index', 'uses'=>'IndexController@index']);
     Route::get('admin/organization/all',['as'=>'admin.organization.all', 'uses'=>'OrganizationController@all']);
@@ -40,6 +17,16 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('admin/user/storeByOrg/{org_id}',['as'=>'admin.user.createByOrg', 'uses'=>'UserController@storeByOrg']);
     Route::post('admin/user/update/{id}',['as'=>'admin.user.update', 'uses'=>'UserController@update']);
     Route::get('admin/user/delete/{id}',['as'=>'admin.user.delete', 'uses'=>'UserController@delete']);
-    //Route::controller('permissions', 'PermissionManageController');
-    Route::controller('roles', 'RoleManageController');
+    //权限有关的路由
+    Route::get('admin/permission/index',['as'=>'admin.permission.index','uses'=>'PermissionController@index']);
+    Route::get('admin/permission/all',['as'=>'admin.permission.all','uses'=>'PermissionController@all']);
+    Route::get('admin/permission/store/{id}/{name}',['as'=>'admin.permission.create','uses'=>'PermissionController@store']);
+    Route::post('admin/permission/update/{id}/{name}',['as'=>'admin.permission.update','uses'=>'PermissionController@update']);
+    Route::get('admin/permission/delete/{id}',['as'=>'admin.permission.delete','uses'=>'PermissionController@delete']);
+    //角色有关路由
+    Route::get('admin/role/index',['as'=>'admin.role.index','uses'=>'RoleController@index']);
+    Route::get('admin/role/all',['as'=>'admin.role.all','uses'=>'RoleController@all']);
+    Route::get('admin/role/store/{id}/{name}',['as'=>'admin.role.create','uses'=>'RoleController@store']);
+    Route::post('admin/role/update/{id/{name}}',['as'=>'admin.role.update','uses'=>'RoleController@update']);
+    Route::get('admin/role/delete/{id}',['as'=>'admin.role.delete','uses'=>'RoleController@delete']);
 });
