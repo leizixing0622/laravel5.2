@@ -11,7 +11,7 @@ use Input;
 class UserController extends Controller{
 	
 	public function findByOrg($id){
-		$users = User::where('org_id','=',$id)->get();
+		$users = Organization::find($id)->users()->get();
         return array('data'=>$users);
 	}
 	public function findById($id){
@@ -26,8 +26,8 @@ class UserController extends Controller{
 	    	$user->name = $request->input('name');
 	    	$user->email = $email;
 	    	$user->password = bcrypt($request->input('password'));
-	    	$user->org_id = $org_id;
     		if($user->save()){
+		    	$user->organizations()->attach($org_id);
 	    		return array("data"=> 1);
 	    	}else{
 		    	return array("data"=>"2");

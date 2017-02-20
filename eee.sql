@@ -1,6 +1,6 @@
 /*
-SQLyog Ultimate v11.33 (64 bit)
-MySQL - 10.1.19-MariaDB : Database - 333
+SQLyog v10.2 
+MySQL - 5.6.17 : Database - 333
 *********************************************************************
 */
 
@@ -65,6 +65,23 @@ CREATE TABLE `migrations` (
 
 insert  into `migrations`(`migration`,`batch`) values ('2014_10_12_000000_create_users_table',1),('2014_10_12_100000_create_password_resets_table',1),('2017_02_12_084147_entrust_setup_tables',1);
 
+/*Table structure for table `organization_user` */
+
+DROP TABLE IF EXISTS `organization_user`;
+
+CREATE TABLE `organization_user` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `organization_id` int(10) DEFAULT NULL,
+  `user_id` int(10) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+/*Data for the table `organization_user` */
+
+insert  into `organization_user`(`id`,`organization_id`,`user_id`,`created_at`,`updated_at`) values (1,1,1,NULL,NULL),(2,1,37,NULL,NULL),(3,1,38,NULL,NULL),(4,1,40,NULL,NULL);
+
 /*Table structure for table `organizations` */
 
 DROP TABLE IF EXISTS `organizations`;
@@ -76,11 +93,11 @@ CREATE TABLE `organizations` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 /*Data for the table `organizations` */
 
-insert  into `organizations`(`id`,`pid`,`name`,`created_at`,`updated_at`) values (1,0,'总经理',NULL,NULL),(2,1,'副总经理',NULL,NULL),(3,1,'总工程师',NULL,NULL),(4,1,'副总经理',NULL,NULL),(5,1,'北京分公司',NULL,NULL),(6,1,'天津办事处',NULL,NULL),(7,1,'行政部',NULL,NULL),(8,1,'财政部',NULL,NULL),(9,2,'市场部',NULL,NULL),(10,2,'销售部',NULL,NULL),(11,3,'技术部',NULL,NULL),(12,3,'质量保证部',NULL,NULL),(13,4,'生产部',NULL,NULL),(14,4,'工程部',NULL,NULL),(15,11,'软件开发部',NULL,NULL),(16,11,'硬件开发部',NULL,NULL);
+insert  into `organizations`(`id`,`pid`,`name`,`created_at`,`updated_at`) values (1,0,'新东方南二环',NULL,'2017-02-19 06:13:48'),(2,1,'高一',NULL,'2017-02-19 06:13:32'),(3,1,'高二',NULL,'2017-02-19 06:13:55'),(4,1,'高三',NULL,'2017-02-19 06:14:51'),(5,1,'市场部',NULL,'2017-02-19 06:15:12'),(6,1,'人事部',NULL,'2017-02-19 06:15:07'),(7,1,'行政部',NULL,NULL),(8,1,'财政部',NULL,NULL),(9,2,'一班',NULL,'2017-02-19 06:13:43'),(10,2,'二班',NULL,'2017-02-19 06:14:01'),(12,3,'一班',NULL,'2017-02-19 06:14:28'),(13,4,'一班',NULL,'2017-02-19 06:14:54'),(14,4,'二班',NULL,'2017-02-19 06:14:56'),(17,3,'二班','2017-02-19 06:14:28','2017-02-19 06:14:33'),(18,1,'111','2017-02-19 09:27:22','2017-02-19 09:27:29');
 
 /*Table structure for table `pages` */
 
@@ -130,7 +147,7 @@ CREATE TABLE `permission_role` (
 
 /*Data for the table `permission_role` */
 
-insert  into `permission_role`(`permission_id`,`role_id`) values (1,2),(2,2);
+insert  into `permission_role`(`permission_id`,`role_id`) values (33,9);
 
 /*Table structure for table `permissions` */
 
@@ -138,18 +155,19 @@ DROP TABLE IF EXISTS `permissions`;
 
 CREATE TABLE `permissions` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `display_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pid` int(10) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `display_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `permissions_name_unique` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `permissions` */
 
-insert  into `permissions`(`id`,`name`,`display_name`,`description`,`created_at`,`updated_at`) values (1,'create-post','Create Posts','create new blog posts','2017-02-12 10:34:10','2017-02-12 10:34:10'),(2,'edit-user','Edit Users','edit existing users','2017-02-12 10:34:10','2017-02-12 10:34:10');
+insert  into `permissions`(`id`,`pid`,`name`,`display_name`,`description`,`created_at`,`updated_at`) values (0,-1,'','ROOT',NULL,NULL,NULL),(1,0,'TradingCenter','交易中心',NULL,NULL,NULL),(2,1,'TotalAssets','总资产概况',NULL,NULL,NULL),(3,1,'TradingDetails','交易明细',NULL,NULL,NULL),(13,0,NULL,'社区管理',NULL,'2017-02-19 05:49:58','2017-02-19 05:50:18'),(14,13,NULL,'内容维护',NULL,'2017-02-19 05:50:26','2017-02-19 05:50:31'),(15,13,NULL,'用户管理',NULL,'2017-02-19 05:50:32','2017-02-19 05:50:38'),(16,13,NULL,'注册维护',NULL,'2017-02-19 05:50:39','2017-02-19 05:50:47'),(17,13,NULL,'事件设置',NULL,'2017-02-19 05:50:49','2017-02-19 05:50:56'),(18,13,NULL,'运营考核',NULL,'2017-02-19 05:50:59','2017-02-19 05:51:05'),(19,0,NULL,'用户分析',NULL,'2017-02-19 05:51:06','2017-02-19 05:51:15'),(20,19,NULL,'新增用户',NULL,'2017-02-19 05:51:16','2017-02-19 05:51:28'),(21,19,NULL,'活跃度',NULL,'2017-02-19 05:51:17','2017-02-19 05:51:33'),(22,19,NULL,'留存率',NULL,'2017-02-19 05:51:35','2017-02-19 05:51:39'),(23,19,NULL,'用户画像',NULL,'2017-02-19 05:51:42','2017-02-19 05:51:47'),(24,0,NULL,'内容分析',NULL,'2017-02-19 05:51:51','2017-02-19 05:51:55'),(25,24,NULL,'总内容',NULL,'2017-02-19 05:52:00','2017-02-19 05:52:04'),(26,24,NULL,'精华内容',NULL,'2017-02-19 05:52:06','2017-02-19 05:52:11'),(27,24,NULL,'页面分析',NULL,'2017-02-19 05:52:12','2017-02-19 05:52:17'),(28,0,NULL,'事件与转化',NULL,'2017-02-19 05:54:10','2017-02-19 05:54:19'),(29,28,NULL,'基础事件',NULL,'2017-02-19 05:54:20','2017-02-19 05:54:32'),(30,28,NULL,'我的转发',NULL,'2017-02-19 05:54:21','2017-02-19 05:54:38'),(31,28,NULL,'搜索分析',NULL,'2017-02-19 05:54:22','2017-02-19 05:54:45'),(32,28,NULL,'事件与漏斗',NULL,'2017-02-19 05:54:48','2017-02-19 05:54:56'),(33,0,NULL,'做作业',NULL,'2017-02-19 06:56:25','2017-02-19 06:56:46'),(34,0,NULL,'改作业',NULL,'2017-02-19 06:56:33','2017-02-19 06:56:42'),(35,0,NULL,'投票',NULL,'2017-02-20 02:43:48','2017-02-20 02:43:55');
 
 /*Table structure for table `role_user` */
 
@@ -166,14 +184,13 @@ CREATE TABLE `role_user` (
 
 /*Data for the table `role_user` */
 
-insert  into `role_user`(`user_id`,`role_id`) values (1,2);
-
 /*Table structure for table `roles` */
 
 DROP TABLE IF EXISTS `roles`;
 
 CREATE TABLE `roles` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `pid` int(10) DEFAULT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `display_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -181,11 +198,11 @@ CREATE TABLE `roles` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `roles_name_unique` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `roles` */
 
-insert  into `roles`(`id`,`name`,`display_name`,`description`,`created_at`,`updated_at`) values (1,'owner','Project Owner','User is the owner of a given project',NULL,NULL),(2,'admin','User Administrator','User is allowed to manage and edit other users',NULL,NULL);
+insert  into `roles`(`id`,`pid`,`name`,`display_name`,`description`,`created_at`,`updated_at`) values (0,-1,'ROOT',NULL,NULL,NULL,NULL),(4,0,'校长',NULL,NULL,'2017-02-19 06:37:57','2017-02-19 06:39:41'),(5,0,'财务主管',NULL,NULL,'2017-02-19 06:40:53','2017-02-19 06:40:58'),(6,0,'人力主管',NULL,NULL,'2017-02-19 06:41:00','2017-02-19 06:41:05'),(7,0,'运营主管',NULL,NULL,'2017-02-19 06:41:12','2017-02-19 06:41:18'),(8,0,'老师',NULL,NULL,'2017-02-19 06:55:55','2017-02-19 06:55:59'),(9,0,'学生',NULL,NULL,'2017-02-19 06:56:02','2017-02-19 06:56:06');
 
 /*Table structure for table `uploadfiles` */
 
@@ -221,13 +238,14 @@ CREATE TABLE `users` (
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `role_id` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`name`,`email`,`password`,`remember_token`,`created_at`,`updated_at`) values (1,'雷子星','1435606838@qq.com','$2y$10$3sZfHD6JKsXyCwPYOqQSuOGWItCgk1LGapPj7k7gJC7R48DBVDmEa','gegnKK945S74oCcZCCtrHUbfYiXhZyFr2fnASxwdj1yVKw2LjrXHD4fcXULA','2017-02-12 08:43:27','2017-02-12 13:32:07');
+insert  into `users`(`id`,`name`,`email`,`password`,`remember_token`,`created_at`,`updated_at`,`role_id`) values (1,'lzx45','110@qq.com','$2y$10$cjvO7rKgP0dtje4JPwXfqOaFjUK8LhqQIoYCTNARuxf9xHVeJ7znq','r9fKM1cNK4RF0ZYpU3mEnKFsNgBY3a5cRhIEEp6dVOmgPGCooR0GpSuCY4CO','2017-02-12 08:43:27','2017-02-19 09:35:28',0),(18,'lzx','1435606838@qq.com','$2y$10$3hMl3UGFIwyT0qvaObBdsOSD0yueyZ7hrGKUL8xORYl8Ul50YiYvO','jNgRCFKXklgpvO7PqYl63ZSLGeguQ0CrQ4lt3OSwNdOXD7Tj7EW6d53q1stQ','2017-02-19 02:36:59','2017-02-20 07:13:22',9),(27,'1','1@qq.com','$2y$10$JiAah1yZZ6oX.sbLc4Hvbu/7lpWQCTZemB8slEJGBjRxFT4BoP2ty',NULL,'2017-02-19 03:28:48','2017-02-19 03:28:48',0),(29,'333','33333@qq.com','$2y$10$FOXR2eWvcJBince8rKJG7uiI8YU.DNmQbS.m3eyvZdi4MdbGpFjSq',NULL,'2017-02-19 03:31:24','2017-02-19 03:31:24',0),(30,'333','333@qq.com','$2y$10$UOVdpjMhmvXK.m2jJgy81uIVyjmGcXh2xRDDJ2DDspYlrbsmlP9VS',NULL,'2017-02-19 03:32:23','2017-02-19 03:32:23',0),(31,'111','111@qq.com','$2y$10$pBuJbizGe8nm0gh/vmQVl.7KDqK/vYp7fEK48yvjXfQkUPaq45MZO',NULL,'2017-02-19 03:33:54','2017-02-19 03:33:54',0),(32,'123','123@qq.com','$2y$10$H7PUhPilbN1tz35LNLYbgO9wbA2Gsl3Jz8yfH1ntcvvvyeMSGFW/O',NULL,'2017-02-19 03:35:12','2017-02-19 03:35:12',0),(33,'123','321@qq.com','$2y$10$jZVt9WHMbhw573TrHS6qA.tEOQb8Q33SvtxAHwiXsi/AT27.PM6hq',NULL,'2017-02-19 03:36:39','2017-02-19 03:36:39',0),(34,'4444','4321@qq.com','$2y$10$mTPeQ8pfzvDRe4Ejny.81.FkNEn5LwJ7YrVSXwkCx.qKLa.7agnIS',NULL,'2017-02-19 03:37:17','2017-02-19 03:37:17',0),(36,'1','133@qq.com','$2y$10$pQrbR.5F9qQ1rl7HhLLg/e8atGdSit1EnF8iQWRdCY6.OxEbghXm.',NULL,'2017-02-19 09:45:10','2017-02-19 09:45:10',0),(37,'123','555@qq','$2y$10$/0Jx6AejCxyMbBUlNY336O.39BzIW/0wMXaofZr1XkgYAJ5zIu5We',NULL,'2017-02-20 08:45:08','2017-02-20 08:45:08',0),(38,'444','444444@qq','$2y$10$L6mySoGIRYngCJ32K7twIOtsaYCf4ZGDWznsxttGWal35GvOXTX0e',NULL,'2017-02-20 08:49:19','2017-02-20 08:49:19',0),(39,'123','111111@qq','$2y$10$VW5Zp3Kq5MViBEH/U6nqG.9NjoaWR2mehIRkzz.4Te3VsscuySQYm',NULL,'2017-02-20 09:06:58','2017-02-20 09:06:58',0),(40,'11','11@qq','$2y$10$onpeIngME3UyvhSJx3jxsuKiXFwZtsl5/wIgM0.4WaqAIr8lSbDva',NULL,'2017-02-20 09:21:41','2017-02-20 09:21:41',0);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
