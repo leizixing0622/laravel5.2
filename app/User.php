@@ -25,6 +25,9 @@ class User extends Authenticatable
     ];
     
     public function organizations() {
-    	return $this->belongsToMany('App\Organization');
+    	return $this->belongsToMany('App\Organization')->withTimestamps();
+    }
+    public function roles() {
+    	return $this->belongsToMany('App\Role')->withTimestamps();
     }
 }

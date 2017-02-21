@@ -10,6 +10,13 @@ use Input;
 
 class UserController extends Controller{
 	
+	public function index(){
+		return view("admin/users");
+	}
+	public function all(){
+		$users = User::all();
+		return array('data'=>$users);
+	}
 	public function findByOrg($id){
 		$users = Organization::find($id)->users()->get();
         return array('data'=>$users);
@@ -50,6 +57,7 @@ class UserController extends Controller{
 	public function delete($id){
 		$user = User::find($id);
     	if($user->delete()){
+    		$user->organizations()->detach();
     		return array("data"=>"success");
     	}else{
 	    	return array("data"=>"error");

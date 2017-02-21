@@ -81,3 +81,30 @@ function expandNodes(nodes) {
                 }  
             }  
         }
+function fns(datar,pid){
+    var result = [] , temp;
+    for(var i in datar){
+        if(datar[i].pid==pid){
+            result.push(datar[i]);
+            temp = fns(datar,datar[i].id);           
+            if(temp.length>0){
+                datar[i].children=temp;
+            }           
+        } 
+    }
+    return result;
+}
+function sf(a){
+    if(!a){return ''}
+    var html='';
+    for(var i=0;i<a.length;i++){
+      if(a[i].children != undefined){
+    	  html+='<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">'+a[i].display_name+'<span class="caret"></span></a><ul class="dropdown-menu">';
+    	  html+=sf(a[i].children);
+    	  html+='</ul></li>\n';
+      }else{
+    	  html+='<li><a href="#">'+a[i].display_name+'</a></li>';
+      }
+    };
+    return html;
+}

@@ -76,11 +76,11 @@ CREATE TABLE `organization_user` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 /*Data for the table `organization_user` */
 
-insert  into `organization_user`(`id`,`organization_id`,`user_id`,`created_at`,`updated_at`) values (1,1,1,NULL,NULL),(2,1,37,NULL,NULL),(3,1,38,NULL,NULL),(4,1,40,NULL,NULL);
+insert  into `organization_user`(`id`,`organization_id`,`user_id`,`created_at`,`updated_at`) values (1,1,1,NULL,NULL),(6,1,18,NULL,NULL);
 
 /*Table structure for table `organizations` */
 
@@ -139,6 +139,8 @@ DROP TABLE IF EXISTS `permission_role`;
 CREATE TABLE `permission_role` (
   `permission_id` int(10) unsigned NOT NULL,
   `role_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`permission_id`,`role_id`),
   KEY `permission_role_role_id_foreign` (`role_id`),
   CONSTRAINT `permission_role_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -147,7 +149,7 @@ CREATE TABLE `permission_role` (
 
 /*Data for the table `permission_role` */
 
-insert  into `permission_role`(`permission_id`,`role_id`) values (33,9);
+insert  into `permission_role`(`permission_id`,`role_id`,`created_at`,`updated_at`) values (1,9,NULL,NULL),(2,9,NULL,NULL),(3,9,NULL,NULL),(33,9,NULL,NULL),(34,8,NULL,NULL),(35,8,NULL,NULL);
 
 /*Table structure for table `permissions` */
 
@@ -157,6 +159,7 @@ CREATE TABLE `permissions` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `pid` int(10) DEFAULT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `display_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -167,7 +170,7 @@ CREATE TABLE `permissions` (
 
 /*Data for the table `permissions` */
 
-insert  into `permissions`(`id`,`pid`,`name`,`display_name`,`description`,`created_at`,`updated_at`) values (0,-1,'','ROOT',NULL,NULL,NULL),(1,0,'TradingCenter','交易中心',NULL,NULL,NULL),(2,1,'TotalAssets','总资产概况',NULL,NULL,NULL),(3,1,'TradingDetails','交易明细',NULL,NULL,NULL),(13,0,NULL,'社区管理',NULL,'2017-02-19 05:49:58','2017-02-19 05:50:18'),(14,13,NULL,'内容维护',NULL,'2017-02-19 05:50:26','2017-02-19 05:50:31'),(15,13,NULL,'用户管理',NULL,'2017-02-19 05:50:32','2017-02-19 05:50:38'),(16,13,NULL,'注册维护',NULL,'2017-02-19 05:50:39','2017-02-19 05:50:47'),(17,13,NULL,'事件设置',NULL,'2017-02-19 05:50:49','2017-02-19 05:50:56'),(18,13,NULL,'运营考核',NULL,'2017-02-19 05:50:59','2017-02-19 05:51:05'),(19,0,NULL,'用户分析',NULL,'2017-02-19 05:51:06','2017-02-19 05:51:15'),(20,19,NULL,'新增用户',NULL,'2017-02-19 05:51:16','2017-02-19 05:51:28'),(21,19,NULL,'活跃度',NULL,'2017-02-19 05:51:17','2017-02-19 05:51:33'),(22,19,NULL,'留存率',NULL,'2017-02-19 05:51:35','2017-02-19 05:51:39'),(23,19,NULL,'用户画像',NULL,'2017-02-19 05:51:42','2017-02-19 05:51:47'),(24,0,NULL,'内容分析',NULL,'2017-02-19 05:51:51','2017-02-19 05:51:55'),(25,24,NULL,'总内容',NULL,'2017-02-19 05:52:00','2017-02-19 05:52:04'),(26,24,NULL,'精华内容',NULL,'2017-02-19 05:52:06','2017-02-19 05:52:11'),(27,24,NULL,'页面分析',NULL,'2017-02-19 05:52:12','2017-02-19 05:52:17'),(28,0,NULL,'事件与转化',NULL,'2017-02-19 05:54:10','2017-02-19 05:54:19'),(29,28,NULL,'基础事件',NULL,'2017-02-19 05:54:20','2017-02-19 05:54:32'),(30,28,NULL,'我的转发',NULL,'2017-02-19 05:54:21','2017-02-19 05:54:38'),(31,28,NULL,'搜索分析',NULL,'2017-02-19 05:54:22','2017-02-19 05:54:45'),(32,28,NULL,'事件与漏斗',NULL,'2017-02-19 05:54:48','2017-02-19 05:54:56'),(33,0,NULL,'做作业',NULL,'2017-02-19 06:56:25','2017-02-19 06:56:46'),(34,0,NULL,'改作业',NULL,'2017-02-19 06:56:33','2017-02-19 06:56:42'),(35,0,NULL,'投票',NULL,'2017-02-20 02:43:48','2017-02-20 02:43:55');
+insert  into `permissions`(`id`,`pid`,`name`,`url`,`display_name`,`description`,`created_at`,`updated_at`) values (0,-1,'',NULL,'ROOT',NULL,NULL,NULL),(1,0,'TradingCenter',NULL,'交易中心',NULL,NULL,NULL),(2,1,'TotalAssets',NULL,'总资产概况',NULL,NULL,NULL),(3,1,'TradingDetails',NULL,'交易明细',NULL,NULL,NULL),(13,0,NULL,NULL,'社区管理',NULL,'2017-02-19 05:49:58','2017-02-19 05:50:18'),(14,13,NULL,NULL,'内容维护',NULL,'2017-02-19 05:50:26','2017-02-19 05:50:31'),(15,13,NULL,NULL,'用户管理',NULL,'2017-02-19 05:50:32','2017-02-19 05:50:38'),(16,13,NULL,NULL,'注册维护',NULL,'2017-02-19 05:50:39','2017-02-19 05:50:47'),(17,13,NULL,NULL,'事件设置',NULL,'2017-02-19 05:50:49','2017-02-19 05:50:56'),(18,13,NULL,NULL,'运营考核',NULL,'2017-02-19 05:50:59','2017-02-19 05:51:05'),(19,0,NULL,NULL,'用户分析',NULL,'2017-02-19 05:51:06','2017-02-19 05:51:15'),(20,19,NULL,NULL,'新增用户',NULL,'2017-02-19 05:51:16','2017-02-19 05:51:28'),(21,19,NULL,NULL,'活跃度',NULL,'2017-02-19 05:51:17','2017-02-19 05:51:33'),(22,19,NULL,NULL,'留存率',NULL,'2017-02-19 05:51:35','2017-02-19 05:51:39'),(23,19,NULL,NULL,'用户画像',NULL,'2017-02-19 05:51:42','2017-02-19 05:51:47'),(24,0,NULL,NULL,'内容分析',NULL,'2017-02-19 05:51:51','2017-02-19 05:51:55'),(25,24,NULL,NULL,'总内容',NULL,'2017-02-19 05:52:00','2017-02-19 05:52:04'),(26,24,NULL,NULL,'精华内容',NULL,'2017-02-19 05:52:06','2017-02-19 05:52:11'),(27,24,NULL,NULL,'页面分析',NULL,'2017-02-19 05:52:12','2017-02-19 05:52:17'),(28,0,NULL,NULL,'事件与转化',NULL,'2017-02-19 05:54:10','2017-02-19 05:54:19'),(29,28,NULL,NULL,'基础事件',NULL,'2017-02-19 05:54:20','2017-02-19 05:54:32'),(30,28,NULL,NULL,'我的转发',NULL,'2017-02-19 05:54:21','2017-02-19 05:54:38'),(31,28,NULL,NULL,'搜索分析',NULL,'2017-02-19 05:54:22','2017-02-19 05:54:45'),(32,28,NULL,NULL,'事件与漏斗',NULL,'2017-02-19 05:54:48','2017-02-19 05:54:56'),(33,0,NULL,NULL,'做作业',NULL,'2017-02-19 06:56:25','2017-02-19 06:56:46'),(34,0,NULL,NULL,'改作业',NULL,'2017-02-19 06:56:33','2017-02-19 06:56:42'),(35,0,NULL,NULL,'投票',NULL,'2017-02-20 02:43:48','2017-02-20 02:43:55');
 
 /*Table structure for table `role_user` */
 
@@ -176,6 +179,8 @@ DROP TABLE IF EXISTS `role_user`;
 CREATE TABLE `role_user` (
   `user_id` int(10) unsigned NOT NULL,
   `role_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`user_id`,`role_id`),
   KEY `role_user_role_id_foreign` (`role_id`),
   CONSTRAINT `role_user_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -183,6 +188,8 @@ CREATE TABLE `role_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `role_user` */
+
+insert  into `role_user`(`user_id`,`role_id`,`created_at`,`updated_at`) values (18,8,NULL,NULL),(18,9,NULL,NULL);
 
 /*Table structure for table `roles` */
 
@@ -241,11 +248,11 @@ CREATE TABLE `users` (
   `role_id` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`name`,`email`,`password`,`remember_token`,`created_at`,`updated_at`,`role_id`) values (1,'lzx45','110@qq.com','$2y$10$cjvO7rKgP0dtje4JPwXfqOaFjUK8LhqQIoYCTNARuxf9xHVeJ7znq','r9fKM1cNK4RF0ZYpU3mEnKFsNgBY3a5cRhIEEp6dVOmgPGCooR0GpSuCY4CO','2017-02-12 08:43:27','2017-02-19 09:35:28',0),(18,'lzx','1435606838@qq.com','$2y$10$3hMl3UGFIwyT0qvaObBdsOSD0yueyZ7hrGKUL8xORYl8Ul50YiYvO','jNgRCFKXklgpvO7PqYl63ZSLGeguQ0CrQ4lt3OSwNdOXD7Tj7EW6d53q1stQ','2017-02-19 02:36:59','2017-02-20 07:13:22',9),(27,'1','1@qq.com','$2y$10$JiAah1yZZ6oX.sbLc4Hvbu/7lpWQCTZemB8slEJGBjRxFT4BoP2ty',NULL,'2017-02-19 03:28:48','2017-02-19 03:28:48',0),(29,'333','33333@qq.com','$2y$10$FOXR2eWvcJBince8rKJG7uiI8YU.DNmQbS.m3eyvZdi4MdbGpFjSq',NULL,'2017-02-19 03:31:24','2017-02-19 03:31:24',0),(30,'333','333@qq.com','$2y$10$UOVdpjMhmvXK.m2jJgy81uIVyjmGcXh2xRDDJ2DDspYlrbsmlP9VS',NULL,'2017-02-19 03:32:23','2017-02-19 03:32:23',0),(31,'111','111@qq.com','$2y$10$pBuJbizGe8nm0gh/vmQVl.7KDqK/vYp7fEK48yvjXfQkUPaq45MZO',NULL,'2017-02-19 03:33:54','2017-02-19 03:33:54',0),(32,'123','123@qq.com','$2y$10$H7PUhPilbN1tz35LNLYbgO9wbA2Gsl3Jz8yfH1ntcvvvyeMSGFW/O',NULL,'2017-02-19 03:35:12','2017-02-19 03:35:12',0),(33,'123','321@qq.com','$2y$10$jZVt9WHMbhw573TrHS6qA.tEOQb8Q33SvtxAHwiXsi/AT27.PM6hq',NULL,'2017-02-19 03:36:39','2017-02-19 03:36:39',0),(34,'4444','4321@qq.com','$2y$10$mTPeQ8pfzvDRe4Ejny.81.FkNEn5LwJ7YrVSXwkCx.qKLa.7agnIS',NULL,'2017-02-19 03:37:17','2017-02-19 03:37:17',0),(36,'1','133@qq.com','$2y$10$pQrbR.5F9qQ1rl7HhLLg/e8atGdSit1EnF8iQWRdCY6.OxEbghXm.',NULL,'2017-02-19 09:45:10','2017-02-19 09:45:10',0),(37,'123','555@qq','$2y$10$/0Jx6AejCxyMbBUlNY336O.39BzIW/0wMXaofZr1XkgYAJ5zIu5We',NULL,'2017-02-20 08:45:08','2017-02-20 08:45:08',0),(38,'444','444444@qq','$2y$10$L6mySoGIRYngCJ32K7twIOtsaYCf4ZGDWznsxttGWal35GvOXTX0e',NULL,'2017-02-20 08:49:19','2017-02-20 08:49:19',0),(39,'123','111111@qq','$2y$10$VW5Zp3Kq5MViBEH/U6nqG.9NjoaWR2mehIRkzz.4Te3VsscuySQYm',NULL,'2017-02-20 09:06:58','2017-02-20 09:06:58',0),(40,'11','11@qq','$2y$10$onpeIngME3UyvhSJx3jxsuKiXFwZtsl5/wIgM0.4WaqAIr8lSbDva',NULL,'2017-02-20 09:21:41','2017-02-20 09:21:41',0);
+insert  into `users`(`id`,`name`,`email`,`password`,`remember_token`,`created_at`,`updated_at`,`role_id`) values (1,'12345','110@qq.com','$2y$10$J.Uh.aKTJZbvDx8YdFq7s.c7W1bUFmD3fsVwt8MRSJtwbRwOq9Mgy','r9fKM1cNK4RF0ZYpU3mEnKFsNgBY3a5cRhIEEp6dVOmgPGCooR0GpSuCY4CO','2017-02-12 08:43:27','2017-02-21 05:20:11',0),(18,'default','111@qq.com','$2y$10$wxco4RWfVEUz4iylgfwOj.thVTAixVg4/uihYv.XJznyiZl42nrgi','jNgRCFKXklgpvO7PqYl63ZSLGeguQ0CrQ4lt3OSwNdOXD7Tj7EW6d53q1stQ','2017-02-19 02:36:59','2017-02-21 05:20:00',9);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

@@ -48,7 +48,8 @@
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="{{ asset('admin/index') }}">后台首页</a></li>
+					<li><a href="{{ asset('admin/index') }}">组织管理</a></li>
+					<li><a href="{{ asset('admin/user/index') }}">用户管理</a></li>
 					<li><a href="{{ asset('admin/permission/index') }}">菜单管理</a></li>
 					<li><a href="{{ asset('admin/role/index') }}">角色管理</a></li>
 				</ul>
@@ -59,13 +60,20 @@
                         <li><a href="{{ url('/login') }}">Login</a></li>
                         <li><a href="{{ url('/register') }}">Register</a></li>
                     @else
+	                    <li>
+	                    	<select name="" id="" style="margin-top:16px;">
+	                    		@foreach(Auth::user()->organizations as $organization)
+	                    			<option value="">{{$organization->name}}</option>
+	                			@endforeach
+	                    	</select>
+	                    </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>注销</a></li>
                             </ul>
                         </li>
                     @endif

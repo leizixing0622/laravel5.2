@@ -12,6 +12,8 @@ Route::group(['middleware' => ['web','auth']], function () {
     Route::post('admin/organization/update/{id}/{name}',['as'=>'admin.organization.edit', 'uses'=>'OrganizationController@update']);
     Route::get('admin/organization/delete/{id}',['as'=>'admin.organization.delete', 'uses'=>'OrganizationController@delete']);
     //用户有关路由
+    Route::get('admin/user/index',['as'=>'admin.user.index', 'uses'=>'UserController@index']);
+    Route::get('admin/user/all',['as'=>'admin.user.all', 'uses'=>'UserController@all']);
     Route::get('admin/user/findByOrg/{id}',['as'=>'admin.user.findByOrg', 'uses'=>'UserController@findByOrg']);
     Route::get('admin/user/findById/{id}',['as'=>'admin.user.findById', 'uses'=>'UserController@findById']);
     Route::post('admin/user/storeByOrg/{org_id}',['as'=>'admin.user.createByOrg', 'uses'=>'UserController@storeByOrg']);
@@ -29,4 +31,8 @@ Route::group(['middleware' => ['web','auth']], function () {
     Route::get('admin/role/store/{id}/{name}',['as'=>'admin.role.create','uses'=>'RoleController@store']);
     Route::post('admin/role/update/{id/{name}}',['as'=>'admin.role.update','uses'=>'RoleController@update']);
     Route::get('admin/role/delete/{id}',['as'=>'admin.role.delete','uses'=>'RoleController@delete']);
+    //测试
+    Route::get('test',['as'=>'test','uses'=>'TestController@test']);
+    //前台页面有关路由
+    Route::get('home/permission/all',['as'=>'home.permission.all','uses'=>'HomeController@permissions']);
 });
