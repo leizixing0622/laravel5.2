@@ -6,9 +6,16 @@ use App\Role;
 use App\Permission;
 use App\Organization;
 use Illuminate\Http\Request;
-use Input;
+use Input,Auth;
 
 class UserController extends Controller{
+	
+	public function __construct()
+	{
+	    //调用中间件
+	    $this->middleware('auth');
+	}
+	
 	
 	public function index(){
 		return view("admin/users");

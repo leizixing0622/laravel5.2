@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
   <div class="row">
-  	<div class="col-md-3">
+  	<div class="col-md-6">
   		<div class="panel panel-info">
   		      <div class="panel-heading">
 			    <h3 class="panel-title">角色管理</h3>
@@ -121,12 +121,11 @@ function onRemove(e, treeId, treeNode) {
 			}
 	});  
 } 
-
 	$(function(){
 		zTreeObj = $.fn.zTree.init($(".ztree"), setting).expandAll(true);
 		setTimeout(function(){  
             expandAll("tree");  
-		},500);//延迟加载  
+		},500);//延迟加载  	
 	});
 </script>
 @endsection

@@ -84,11 +84,12 @@
 					type: 'GET',
 					async: false,  
 					success:function(e){
+							console.log(e);
 							console.log(fns(e,0));
 							$(".navbar-nav1").html(sf(fns(e,0)));
 						},
 					error:function(msg){
-							console.log(msg);
+							console.log(msg.responseText);
 						}
 	    		}
     		);

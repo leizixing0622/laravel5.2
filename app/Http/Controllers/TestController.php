@@ -9,20 +9,14 @@ use Illuminate\Http\Request;
 use Input,Auth;
 
 class TestController extends Controller{
-	public function test(){
-		$arr = array();
-		$result = Auth::user()->roles;
-		foreach($result as $value){
-			$result2 = Role::find($value->id)->permissions;
-			foreach($result2 as $value){
-				$arr[] = $value->id;
-			}
+	public function test(Request $request){
+		if(($request->ajax() && !$request->pjax()) || $request->wantsJson()){
+			return 1;
+		}else{
+			return 2;
 		}
-		sort($arr);
-		$arr2 = array();
-		foreach($arr as $v){
-			$arr2[] = Permission::find($v);
-		}
-		var_dump($arr2);
+	}
+	function expectsJson(){
+		return ($this->ajax() && !$this->pjax()) || $this->wantsJson();
 	}
 }

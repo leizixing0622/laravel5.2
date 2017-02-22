@@ -8,7 +8,7 @@ use App\Organization;
 use Illuminate\Http\Request;
 use Input;
 
-class PermissionController extends Controller
+class RolePermissionController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -22,29 +22,38 @@ class PermissionController extends Controller
 	}
     
     public function index(){
-    	return view("admin/permissions");
+    	return view("admin/roles-permissions");
     }
     
-    public function all(){
-    	$result = Permission::all();
+    public function allRoles(){
+    	$result = Role::all();
+    	return array('data'=>$result);
+    }
+    
+    public function findByRole($id){
+    	$result = Role::find($id)->permissions;
+    	return array('data'=>$result);
+    }
+    /* public function all(){
+    	$result = Role::all();
     	return $result;
     }
     
     public function store($id,$name){
-    	$permission = new Permission;
-    	$permission -> pid = $id;
-    	$permission -> display_name = $name;
-    	if($permission->save()){
-    		return array("newTreeNode"=>$permission);
+    	$role = new Role;
+    	$role -> pid = $id;
+    	$role -> name = $name;
+    	if($role->save()){
+    		return array("newTreeNode"=>$role);
     	}else{
     		return "error";
     	};
     }
     
     public function update($id,$name){
-    	$permission = Permission::find($id);
-    	$permission -> display_name = $name;
-    	if($permission->update()){
+    	$role = Role::find($id);
+    	$role -> name = $name;
+    	if($role->update()){
     		return "success";
     	}else{
     		return "error";
@@ -52,11 +61,12 @@ class PermissionController extends Controller
     }
     
     public function delete($id){
-    	$permission = Permission::find($id);
-    	if($permission->delete()){
+    	$role = Role::find($id);
+    	if($role->delete()){
     		return "success";
     	}else{
     		return "error";
     	};
-    }
+    }*/
 }
+    

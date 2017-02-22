@@ -15,6 +15,11 @@ class RoleController extends Controller
      *
      * @return void
      */
+     public function __construct()
+	{
+	    //调用中间件
+	    $this->middleware('auth');
+	}
     
     public function index(){
     	return view("admin/roles");

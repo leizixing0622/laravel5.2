@@ -97,7 +97,7 @@ CREATE TABLE `organizations` (
 
 /*Data for the table `organizations` */
 
-insert  into `organizations`(`id`,`pid`,`name`,`created_at`,`updated_at`) values (1,0,'新东方南二环',NULL,'2017-02-19 06:13:48'),(2,1,'高一',NULL,'2017-02-19 06:13:32'),(3,1,'高二',NULL,'2017-02-19 06:13:55'),(4,1,'高三',NULL,'2017-02-19 06:14:51'),(5,1,'市场部',NULL,'2017-02-19 06:15:12'),(6,1,'人事部',NULL,'2017-02-19 06:15:07'),(7,1,'行政部',NULL,NULL),(8,1,'财政部',NULL,NULL),(9,2,'一班',NULL,'2017-02-19 06:13:43'),(10,2,'二班',NULL,'2017-02-19 06:14:01'),(12,3,'一班',NULL,'2017-02-19 06:14:28'),(13,4,'一班',NULL,'2017-02-19 06:14:54'),(14,4,'二班',NULL,'2017-02-19 06:14:56'),(17,3,'二班','2017-02-19 06:14:28','2017-02-19 06:14:33'),(18,1,'111','2017-02-19 09:27:22','2017-02-19 09:27:29');
+insert  into `organizations`(`id`,`pid`,`name`,`created_at`,`updated_at`) values (1,0,'新东方校区',NULL,'2017-02-19 06:13:48'),(2,1,'高一',NULL,'2017-02-19 06:13:32'),(3,1,'高二',NULL,'2017-02-19 06:13:55'),(4,1,'高三',NULL,'2017-02-19 06:14:51'),(5,1,'市场部',NULL,'2017-02-19 06:15:12'),(6,1,'人事部',NULL,'2017-02-19 06:15:07'),(7,1,'行政部',NULL,NULL),(8,1,'财政部',NULL,NULL),(9,2,'一班',NULL,'2017-02-19 06:13:43'),(10,2,'二班',NULL,'2017-02-19 06:14:01'),(12,3,'一班',NULL,'2017-02-19 06:14:28'),(13,4,'一班',NULL,'2017-02-19 06:14:54'),(14,4,'二班',NULL,'2017-02-19 06:14:56'),(17,3,'二班','2017-02-19 06:14:28','2017-02-19 06:14:33');
 
 /*Table structure for table `pages` */
 
@@ -149,7 +149,7 @@ CREATE TABLE `permission_role` (
 
 /*Data for the table `permission_role` */
 
-insert  into `permission_role`(`permission_id`,`role_id`,`created_at`,`updated_at`) values (1,9,NULL,NULL),(2,9,NULL,NULL),(3,9,NULL,NULL),(33,9,NULL,NULL),(34,8,NULL,NULL),(35,8,NULL,NULL);
+insert  into `permission_role`(`permission_id`,`role_id`,`created_at`,`updated_at`) values (1,9,NULL,NULL),(2,9,NULL,NULL),(3,9,NULL,NULL),(33,9,NULL,NULL),(34,8,NULL,NULL),(35,8,NULL,NULL),(36,8,NULL,NULL),(37,8,NULL,NULL),(38,8,NULL,NULL),(39,8,NULL,NULL),(40,8,NULL,NULL),(41,8,NULL,NULL),(44,8,NULL,NULL);
 
 /*Table structure for table `permissions` */
 
@@ -164,13 +164,14 @@ CREATE TABLE `permissions` (
   `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `type` int(10) DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `permissions_name_unique` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `permissions` */
 
-insert  into `permissions`(`id`,`pid`,`name`,`url`,`display_name`,`description`,`created_at`,`updated_at`) values (0,-1,'',NULL,'ROOT',NULL,NULL,NULL),(1,0,'TradingCenter',NULL,'交易中心',NULL,NULL,NULL),(2,1,'TotalAssets',NULL,'总资产概况',NULL,NULL,NULL),(3,1,'TradingDetails',NULL,'交易明细',NULL,NULL,NULL),(13,0,NULL,NULL,'社区管理',NULL,'2017-02-19 05:49:58','2017-02-19 05:50:18'),(14,13,NULL,NULL,'内容维护',NULL,'2017-02-19 05:50:26','2017-02-19 05:50:31'),(15,13,NULL,NULL,'用户管理',NULL,'2017-02-19 05:50:32','2017-02-19 05:50:38'),(16,13,NULL,NULL,'注册维护',NULL,'2017-02-19 05:50:39','2017-02-19 05:50:47'),(17,13,NULL,NULL,'事件设置',NULL,'2017-02-19 05:50:49','2017-02-19 05:50:56'),(18,13,NULL,NULL,'运营考核',NULL,'2017-02-19 05:50:59','2017-02-19 05:51:05'),(19,0,NULL,NULL,'用户分析',NULL,'2017-02-19 05:51:06','2017-02-19 05:51:15'),(20,19,NULL,NULL,'新增用户',NULL,'2017-02-19 05:51:16','2017-02-19 05:51:28'),(21,19,NULL,NULL,'活跃度',NULL,'2017-02-19 05:51:17','2017-02-19 05:51:33'),(22,19,NULL,NULL,'留存率',NULL,'2017-02-19 05:51:35','2017-02-19 05:51:39'),(23,19,NULL,NULL,'用户画像',NULL,'2017-02-19 05:51:42','2017-02-19 05:51:47'),(24,0,NULL,NULL,'内容分析',NULL,'2017-02-19 05:51:51','2017-02-19 05:51:55'),(25,24,NULL,NULL,'总内容',NULL,'2017-02-19 05:52:00','2017-02-19 05:52:04'),(26,24,NULL,NULL,'精华内容',NULL,'2017-02-19 05:52:06','2017-02-19 05:52:11'),(27,24,NULL,NULL,'页面分析',NULL,'2017-02-19 05:52:12','2017-02-19 05:52:17'),(28,0,NULL,NULL,'事件与转化',NULL,'2017-02-19 05:54:10','2017-02-19 05:54:19'),(29,28,NULL,NULL,'基础事件',NULL,'2017-02-19 05:54:20','2017-02-19 05:54:32'),(30,28,NULL,NULL,'我的转发',NULL,'2017-02-19 05:54:21','2017-02-19 05:54:38'),(31,28,NULL,NULL,'搜索分析',NULL,'2017-02-19 05:54:22','2017-02-19 05:54:45'),(32,28,NULL,NULL,'事件与漏斗',NULL,'2017-02-19 05:54:48','2017-02-19 05:54:56'),(33,0,NULL,NULL,'做作业',NULL,'2017-02-19 06:56:25','2017-02-19 06:56:46'),(34,0,NULL,NULL,'改作业',NULL,'2017-02-19 06:56:33','2017-02-19 06:56:42'),(35,0,NULL,NULL,'投票',NULL,'2017-02-20 02:43:48','2017-02-20 02:43:55');
+insert  into `permissions`(`id`,`pid`,`name`,`url`,`display_name`,`description`,`created_at`,`updated_at`,`type`) values (0,-1,'',NULL,'ROOT',NULL,NULL,NULL,1),(1,0,'TradingCenter','trading-center','交易中心',NULL,NULL,NULL,1),(2,1,'TotalAssets','trading-center/total-assets','总资产概况',NULL,NULL,NULL,1),(3,1,'TradingDetails','trading-center/trading-details','交易明细',NULL,NULL,NULL,1),(13,0,NULL,'community-management','社区管理',NULL,'2017-02-19 05:49:58','2017-02-19 05:50:18',1),(14,13,NULL,NULL,'内容维护',NULL,'2017-02-19 05:50:26','2017-02-19 05:50:31',1),(15,13,NULL,NULL,'用户管理',NULL,'2017-02-19 05:50:32','2017-02-19 05:50:38',1),(16,13,NULL,NULL,'注册维护',NULL,'2017-02-19 05:50:39','2017-02-19 05:50:47',1),(17,13,NULL,NULL,'事件设置',NULL,'2017-02-19 05:50:49','2017-02-19 05:50:56',1),(18,13,NULL,NULL,'运营考核',NULL,'2017-02-19 05:50:59','2017-02-19 05:51:05',1),(19,0,NULL,NULL,'用户分析',NULL,'2017-02-19 05:51:06','2017-02-19 05:51:15',1),(20,19,NULL,NULL,'新增用户',NULL,'2017-02-19 05:51:16','2017-02-19 05:51:28',1),(21,19,NULL,NULL,'活跃度',NULL,'2017-02-19 05:51:17','2017-02-19 05:51:33',1),(22,19,NULL,NULL,'留存率',NULL,'2017-02-19 05:51:35','2017-02-19 05:51:39',1),(23,19,NULL,NULL,'用户画像',NULL,'2017-02-19 05:51:42','2017-02-19 05:51:47',1),(24,0,NULL,NULL,'内容分析',NULL,'2017-02-19 05:51:51','2017-02-19 05:51:55',1),(25,24,NULL,NULL,'总内容',NULL,'2017-02-19 05:52:00','2017-02-19 05:52:04',1),(26,24,NULL,NULL,'精华内容',NULL,'2017-02-19 05:52:06','2017-02-19 05:52:11',1),(27,24,NULL,NULL,'页面分析',NULL,'2017-02-19 05:52:12','2017-02-19 05:52:17',1),(28,0,NULL,NULL,'事件与转化',NULL,'2017-02-19 05:54:10','2017-02-19 05:54:19',1),(29,28,NULL,NULL,'基础事件',NULL,'2017-02-19 05:54:20','2017-02-19 05:54:32',1),(30,28,NULL,NULL,'我的转发',NULL,'2017-02-19 05:54:21','2017-02-19 05:54:38',1),(31,28,NULL,NULL,'搜索分析',NULL,'2017-02-19 05:54:22','2017-02-19 05:54:45',1),(32,28,NULL,NULL,'事件与漏斗',NULL,'2017-02-19 05:54:48','2017-02-19 05:54:56',1),(33,0,NULL,'do-homework','做作业',NULL,'2017-02-19 06:56:25','2017-02-19 06:56:46',1),(34,0,NULL,'check-homework','改作业',NULL,'2017-02-19 06:56:33','2017-02-19 06:56:42',1),(35,0,NULL,'vote','投票',NULL,'2017-02-20 02:43:48','2017-02-20 02:43:55',1),(36,0,NULL,'admin/index','后台管理',NULL,'2017-02-22 02:09:27','2017-02-22 02:09:34',1),(37,36,NULL,'admin/organization/index','组织管理',NULL,'2017-02-22 02:09:36','2017-02-22 02:09:42',1),(38,36,NULL,'admin/user/index','用户管理',NULL,'2017-02-22 02:09:43','2017-02-22 02:10:32',1),(39,36,NULL,'admin/permission/index','菜单管理',NULL,'2017-02-22 02:09:45','2017-02-22 02:10:39',1),(40,36,NULL,'admin/role/index','角色管理',NULL,'2017-02-22 02:10:40','2017-02-22 02:10:45',1),(41,36,NULL,'test','测试',NULL,NULL,NULL,1),(44,36,NULL,'admin/role-permission/index','角色授权',NULL,'2017-02-22 08:47:26','2017-02-22 08:47:34',1);
 
 /*Table structure for table `role_user` */
 
@@ -245,14 +246,13 @@ CREATE TABLE `users` (
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `role_id` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`name`,`email`,`password`,`remember_token`,`created_at`,`updated_at`,`role_id`) values (1,'12345','110@qq.com','$2y$10$J.Uh.aKTJZbvDx8YdFq7s.c7W1bUFmD3fsVwt8MRSJtwbRwOq9Mgy','r9fKM1cNK4RF0ZYpU3mEnKFsNgBY3a5cRhIEEp6dVOmgPGCooR0GpSuCY4CO','2017-02-12 08:43:27','2017-02-21 05:20:11',0),(18,'default','111@qq.com','$2y$10$wxco4RWfVEUz4iylgfwOj.thVTAixVg4/uihYv.XJznyiZl42nrgi','jNgRCFKXklgpvO7PqYl63ZSLGeguQ0CrQ4lt3OSwNdOXD7Tj7EW6d53q1stQ','2017-02-19 02:36:59','2017-02-21 05:20:00',9);
+insert  into `users`(`id`,`name`,`email`,`password`,`remember_token`,`created_at`,`updated_at`) values (1,'12345','110@qq.com','$2y$10$J.Uh.aKTJZbvDx8YdFq7s.c7W1bUFmD3fsVwt8MRSJtwbRwOq9Mgy','r9fKM1cNK4RF0ZYpU3mEnKFsNgBY3a5cRhIEEp6dVOmgPGCooR0GpSuCY4CO','2017-02-12 08:43:27','2017-02-21 05:20:11'),(18,'default','111@qq.com','$2y$10$wxco4RWfVEUz4iylgfwOj.thVTAixVg4/uihYv.XJznyiZl42nrgi','RXPgyF9M8qhg8lrpQpkuvmjYmmsnubUlmTEmQsumQ7ZVWYbQR2DVuUrJpXPr','2017-02-19 02:36:59','2017-02-22 07:19:51');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

@@ -16,11 +16,17 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
+     //Controller的构造方法
+	public function __construct()
+	{
+	    //调用中间件
+	    $this->middleware('auth');
+	}
+	/**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
     /**
      * Show the application dashboard.
      *
@@ -42,7 +48,11 @@ class HomeController extends Controller
 		sort($arr);
 		$arr2 = array();
 		foreach($arr as $v){
-			$arr2[] = Permission::find($v);
+			if(Permission::find($v)->type == 2){
+				
+			}else{
+				$arr2[] = Permission::find($v);
+			}
 		}
 		return $arr2;
     }

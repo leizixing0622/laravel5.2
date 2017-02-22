@@ -49,7 +49,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         //自定义检测权限
-        'permission' => \App\Http\Middleware\Permission::class,
+        'getpermission' => \App\Http\Middleware\GetPermission::class,
         'authAdmin' => \App\Http\Middleware\AuthenticateAdmin::class,
         'menu'=>\App\Http\Middleware\GetMenu::class,
     ];

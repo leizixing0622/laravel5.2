@@ -1,5 +1,9 @@
 $.ajaxSetup({
-	headers:{'X-CSRF-Token' : $('meta[name=_token]').attr('content')}
+	headers:{'X-CSRF-Token' : $('meta[name=_token]').attr('content')},
+	contentType: "application/json; charset=utf-8",
+	beforeSend: function(request) {
+	    request.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+	}
 });
 (function($){  
   $.fn.serializeObject = function() {  
@@ -99,11 +103,25 @@ function sf(a){
     var html='';
     for(var i=0;i<a.length;i++){
       if(a[i].children != undefined){
-    	  html+='<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">'+a[i].display_name+'<span class="caret"></span></a><ul class="dropdown-menu">';
+    	  html+='<li class="dropdown"><a href="'+a[i].url+'" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">'+a[i].display_name+'<span class="caret"></span></a><ul class="dropdown-menu">';
     	  html+=sf(a[i].children);
     	  html+='</ul></li>\n';
       }else{
-    	  html+='<li><a href="#">'+a[i].display_name+'</a></li>';
+    	  html+='<li><a href="'+a[i].url+'">'+a[i].display_name+'</a></li>';
+      }
+    };
+    return html;
+}
+function sf2(a){
+    if(!a){return ''}
+    var html='';
+    for(var i=0;i<a.length;i++){
+      if(a[i].children != undefined){
+    	  html+='<li class="dropdown"><a href="'+a[i].url+'" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">'+a[i].display_name+'<span class="caret"></span></a><ul class="dropdown-menu">';
+    	  html+=sf(a[i].children);
+    	  html+='</ul></li>\n';
+      }else{
+    	  html+='<li><a href="'+a[i].url+'">'+a[i].display_name+'</a></li>';
       }
     };
     return html;

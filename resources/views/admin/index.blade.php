@@ -186,7 +186,7 @@ function zTreeBeforeRemove(treeId, treeNode) {
 function onRemove(e, treeId, treeNode) {  
 	$.ajax({
 		url: '{{ URL("admin/organization/delete") }}/'+treeNode.id,
-		type: 'POST',
+		type: 'GET',
 		async: false,  
         contentType: false,  
         processData: false,  
@@ -353,5 +353,6 @@ $("#example").delegate('.userDelete','click',function(){
                 }
             ],
         } );
+    });
 </script>
 @endsection
