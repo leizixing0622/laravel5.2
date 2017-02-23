@@ -27,9 +27,30 @@ class IndexController extends Controller
      *
      * @return void
      */
-    
+
     public function index(){
-    	
+
     	return view("admin/index");
+    }
+
+    public function permissions(){
+        $arr = array();
+        $result = Auth::user()->roles;
+        foreach($result as $value){
+            $result2 = Role::find($value->id)->permissions;
+            foreach($result2 as $value){
+                $arr[] = $value->id;
+            }
+        }
+        sort($arr);
+        $arr2 = array();
+        foreach($arr as $v){
+            if(Permission::find($v)->type == 2){
+
+            }else{
+                $arr2[] = Permission::find($v);
+            }
+        }
+        return $arr2;
     }
 }

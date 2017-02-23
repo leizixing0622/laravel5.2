@@ -48,8 +48,8 @@ class HomeController extends Controller
 		sort($arr);
 		$arr2 = array();
 		foreach($arr as $v){
-			if(Permission::find($v)->type == 2){
-				
+			if(Permission::find($v)->type == 2 || Permission::find($v)->pid == 36 || Permission::find($v)->id == 36){
+
 			}else{
 				$arr2[] = Permission::find($v);
 			}

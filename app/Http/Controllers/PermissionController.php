@@ -6,7 +6,7 @@ use App\Role;
 use App\Permission;
 use App\Organization;
 use Illuminate\Http\Request;
-use Input;
+use Input, Auth;
 
 class PermissionController extends Controller
 {
@@ -20,16 +20,16 @@ class PermissionController extends Controller
 	    //调用中间件
 	    $this->middleware('auth');
 	}
-    
+
     public function index(){
     	return view("admin/permissions");
     }
-    
+
     public function all(){
     	$result = Permission::all();
     	return $result;
     }
-    
+
     public function store($id,$name){
     	$permission = new Permission;
     	$permission -> pid = $id;
@@ -40,7 +40,7 @@ class PermissionController extends Controller
     		return "error";
     	};
     }
-    
+
     public function update($id,$name){
     	$permission = Permission::find($id);
     	$permission -> display_name = $name;
@@ -50,7 +50,7 @@ class PermissionController extends Controller
     		return "error";
     	};
     }
-    
+
     public function delete($id){
     	$permission = Permission::find($id);
     	if($permission->delete()){

@@ -9,8 +9,8 @@
 			    <h3 class="panel-title">组织机构</h3>
 			  </div>
 			  <div class="panel-body">
-			    	<div id="tree" class="ztree">  
-	  
+			    	<div id="tree" class="ztree">
+
 	  			</div>
 			  </div>
   		</div>
@@ -37,7 +37,7 @@
                   </div>
 
                   <!-- Table -->
-                  
+
                 </div>
             </div>
   </div>
@@ -90,19 +90,19 @@
 </div><!-- /.modal -->
 <script type="text/javascript">
 var zTreeObj;
-var curStatus = "init", curAsyncCount = 0, goAsync = false; 
+var curStatus = "init", curAsyncCount = 0, goAsync = false;
 var org_id = 1,org_name = "总经理",user_id = 0;
 var setting = {
 		view: {
-			addHoverDom: addHoverDom, 
-	        removeHoverDom: removeHoverDom, 
+			addHoverDom: addHoverDom,
+	        removeHoverDom: removeHoverDom,
 		},
-		edit: {  
-	        enable: true, 
-	        editNameSelectAll: true, 
-	        showRemoveBtn: true,  
-	        showRenameBtn: true   
-	    }, 
+		edit: {
+	        enable: true,
+	        editNameSelectAll: true,
+	        showRemoveBtn: true,
+	        showRenameBtn: true
+	    },
 		async: {
 			enable: true,
 			type: "GET",
@@ -117,87 +117,87 @@ var setting = {
 				rootPId: 0,
 			}
 		},
-		callback: {  
-            onRename: onRename, 
+		callback: {
+            onRename: onRename,
         	beforeRemove: zTreeBeforeRemove,
-            onRemove: onRemove, 
-            beforeAsync: beforeAsync,  
+            onRemove: onRemove,
+            beforeAsync: beforeAsync,
            	onAsyncSuccess: onAsyncSuccess,
-           	onClick:zTreeOnClick  
-        }  
+           	onClick:zTreeOnClick
+        }
 };
 
-function addHoverDom(treeId, treeNode) {  
-    var sObj = $("#" + treeNode.tId + "_span"); 
-    if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;  
-  
-    var addStr = "<span class='button add' id='addBtn_" + treeNode.tId + "' title='add node' onfocus='this.blur();'></span>";   
-    sObj.after(addStr); 
-    var btn = $("#addBtn_"+treeNode.tId);  
-  
-    if (btn) btn.bind("click", function(){  
-        var zTree = $.fn.zTree.getZTreeObj("tree");  
-        var name='新节点'; 
+function addHoverDom(treeId, treeNode) {
+    var sObj = $("#" + treeNode.tId + "_span");
+    if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+
+    var addStr = "<span class='button add' id='addBtn_" + treeNode.tId + "' title='add node' onfocus='this.blur();'></span>";
+    sObj.after(addStr);
+    var btn = $("#addBtn_"+treeNode.tId);
+
+    if (btn) btn.bind("click", function(){
+        var zTree = $.fn.zTree.getZTreeObj("tree");
+        var name='新节点';
         $.ajax({
     		url: '{{ URL("admin/organization/store") }}/'+treeNode.id+'/'+name,
     		type: 'POST',
-    		async: false,  
-            contentType: false,  
-            processData: false,  
+    		async: false,
+            contentType: false,
+            processData: false,
     		success:function(e){
     				console.log(e);
-			        zTree.addNodes(treeNode, {id:(e.newTreeNode.id), parentid:e.newTreeNode.pid, name:e.newTreeNode.name}); 
+			        zTree.addNodes(treeNode, {id:(e.newTreeNode.id), parentid:e.newTreeNode.pid, name:e.newTreeNode.name});
     			},
     		error:function(msg){
     				console.log(msg);
     			}
-    	}); 
-    });  
-};  
-function removeHoverDom(treeId, treeNode) {  
-    $("#addBtn_"+treeNode.tId).unbind().remove();  
+    	});
+    });
+};
+function removeHoverDom(treeId, treeNode) {
+    $("#addBtn_"+treeNode.tId).unbind().remove();
 };
 
-function onRename(e, treeId, treeNode, isCancel) {  
+function onRename(e, treeId, treeNode, isCancel) {
     console.log(treeNode);
 	$.ajax({
 		url: '{{ URL("admin/organization/update") }}/'+treeNode.id+'/'+treeNode.name,
 		type: 'POST',
-		async: false,  
-        contentType: false,  
-        processData: false,  
+		async: false,
+        contentType: false,
+        processData: false,
 		success:function(e){
 				console.log(e);
 			},
 		error:function(msg){
 				console.log(msg);
 			}
-	}); 
+	});
 }
 
 
 function zTreeBeforeRemove(treeId, treeNode) {
-	var zTree = $.fn.zTree.getZTreeObj("tree");  
-    zTree.selectNode(treeNode);  
-    return confirm("确认删除" + treeNode.name + "吗？"); 
+	var zTree = $.fn.zTree.getZTreeObj("tree");
+    zTree.selectNode(treeNode);
+    return confirm("确认删除" + treeNode.name + "吗？");
 }
 
 
-function onRemove(e, treeId, treeNode) {  
+function onRemove(e, treeId, treeNode) {
 	$.ajax({
 		url: '{{ URL("admin/organization/delete") }}/'+treeNode.id,
 		type: 'GET',
-		async: false,  
-        contentType: false,  
-        processData: false,  
+		async: false,
+        contentType: false,
+        processData: false,
 		success:function(e){
 				console.log(e);
 			},
 		error:function(msg){
 				console.log(msg);
 			}
-	});  
-} 
+	});
+}
 
 function zTreeOnClick(event, treeId, treeNode){
 	org_id = treeNode.id;
@@ -208,7 +208,7 @@ function userCreate() {
 	$('#myModal input').val("");
 	$('#myModal input[name = "type"]').val(1);
 	$('#myModal input[name = "org"]').val(org_name);
-	$('#myModal').modal();	
+	$('#myModal').modal();
 }
 function forUserStore(){
 	$("#save").click();
@@ -241,7 +241,7 @@ function userStore() {
 					url: '{{ URL("admin/user/storeByOrg") }}' + '/' + org_id,
 					type: 'POST',
 					data: data,
-					async: false,  
+					async: false,
 					success:function(e){
 							console.log(e.data);
 							if(e.data == -1){
@@ -264,7 +264,7 @@ function userStore() {
 					url: '{{ URL("admin/user/update") }}' + '/' + user_id,
 					type: 'POST',
 					data: data,
-					async: false,  
+					async: false,
 					success:function(e){
 							console.log(e.data);
 							$('#myModal').modal('hide');
@@ -276,7 +276,7 @@ function userStore() {
 						}
 				});
 			}
-		} 
+		}
 	});
 }
 //用户编辑按钮
@@ -285,7 +285,7 @@ $("#example").delegate('.userUpdate','click',function(){
 	$.ajax({
 		url: '{{ URL("admin/user/findById") }}'+'/'+$(this).attr("data-id"),
 		type: 'GET',
-		async: false,  
+		async: false,
 		success:function(e){
 				user_id = e.id;
 				$('#myModal input[name = "org"]').val(org_name);
@@ -308,10 +308,10 @@ $("#example").delegate('.userDelete','click',function(){
 		$.ajax({
 			url: '{{ URL("admin/user/delete") }}'+'/'+$(this).attr("data-id"),
 			type: 'GET',
-			async: false,  
+			async: false,
 			success:function(e){
 					console.log(e);
-					ajaxTable.ajax.reload();					
+					ajaxTable.ajax.reload();
 					toastr.info("删除成功");
 				},
 			error:function(msg){
@@ -322,12 +322,10 @@ $("#example").delegate('.userDelete','click',function(){
 });
 	$(function(){
 		zTreeObj = $.fn.zTree.init($(".ztree"), setting).expandAll(true);
-        setTimeout(function(){  
-	        expandAll("tree");  
-		},500);//延迟加载  
-    	});
-                            
-        ajaxTable = $('#example').DataTable( {
+        setTimeout(function(){
+	        expandAll("tree");
+		},500);//延迟加载
+    	ajaxTable = $('#example').DataTable( {
             "type":"GET",
             "ajax": '{{ URL("admin/user/findByOrg") }}'+'/'+org_id,
             "columns": [
@@ -339,8 +337,8 @@ $("#example").delegate('.userDelete','click',function(){
                 { "data": null }
             ],
             "fnRowCallback" : function(nRow, aData, iDisplayIndex) {
-            	$('td:eq(5)', nRow).find(".userUpdate").attr("data-id",aData.id);
-            	$('td:eq(5)', nRow).find(".userDelete").attr("data-id",aData.id);
+                $('td:eq(5)', nRow).find(".userUpdate").attr("data-id",aData.id);
+                $('td:eq(5)', nRow).find(".userDelete").attr("data-id",aData.id);
             },
             "lengthChange":false,
             "aoColumnDefs":[

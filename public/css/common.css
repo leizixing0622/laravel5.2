@@ -1,5 +1,5 @@
-input.error { 
-	border: 1px solid red; 
+input.error {
+	border: 1px solid red;
 }
 label.error {
     padding-left: 0px;
@@ -10,5 +10,9 @@ label.error {
 label.checked {
 }
 a:hover{
-	cursor:pointer;	
+	cursor:pointer;
+}
+.panel-body{
+    height:460px;
+    overflow:auto;
 }

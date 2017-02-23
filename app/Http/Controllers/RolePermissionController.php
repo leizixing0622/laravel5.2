@@ -20,53 +20,30 @@ class RolePermissionController extends Controller
 	    //调用中间件
 	    $this->middleware('auth');
 	}
-    
+
     public function index(){
     	return view("admin/roles-permissions");
     }
-    
+
     public function allRoles(){
     	$result = Role::all();
     	return array('data'=>$result);
     }
-    
+
     public function findByRole($id){
     	$result = Role::find($id)->permissions;
     	return array('data'=>$result);
     }
-    /* public function all(){
-    	$result = Role::all();
-    	return $result;
+
+    public function storeByRole(Request $request, $id){
+        $role = Role::find($id);
+        $arr = $request->get('data');
+        $arr2 = array();
+        foreach($arr as $k => $v){
+            $arr2[] = (int)$v['id'];
+        }
+        $role->permissions()->sync($arr2);
+        return response()->json($role->permissions);
     }
-    
-    public function store($id,$name){
-    	$role = new Role;
-    	$role -> pid = $id;
-    	$role -> name = $name;
-    	if($role->save()){
-    		return array("newTreeNode"=>$role);
-    	}else{
-    		return "error";
-    	};
-    }
-    
-    public function update($id,$name){
-    	$role = Role::find($id);
-    	$role -> name = $name;
-    	if($role->update()){
-    		return "success";
-    	}else{
-    		return "error";
-    	};
-    }
-    
-    public function delete($id){
-    	$role = Role::find($id);
-    	if($role->delete()){
-    		return "success";
-    	}else{
-    		return "error";
-    	};
-    }*/
 }
-    
+

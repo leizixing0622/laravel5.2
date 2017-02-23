@@ -23,8 +23,8 @@
 	<script type="text/javascript" src="{{ asset('/js/toastr.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/jquery.validate.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/messages_zh.js') }}"></script>
-	
-	
+
+
 </head>
 <body id="app-layout">
 	<nav class="navbar navbar-inverse">
@@ -39,13 +39,14 @@
 	      </button>
 	      <a class="navbar-brand" href="#">laravel学习之路</a>
 	    </div>
-	
+
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav navbar-nav1">
 //自定义菜单
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
+	      		<li><a href="{{ asset('admin/index') }}">后台管理</a></li>
 				<!-- Authentication Links -->
 	            @if (Auth::guest())
 	                <li><a href="{{ url('/login') }}">Login</a></li>
@@ -62,7 +63,7 @@
 	                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 	                        {{ Auth::user()->name }} <span class="caret"></span>
 	                    </a>
-	
+
 	                    <ul class="dropdown-menu" role="menu">
 	                        <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>注销</a></li>
 	                    </ul>
@@ -82,7 +83,7 @@
     			{
 	    			url: '{{ URL("home/permission/all") }}',
 					type: 'GET',
-					async: false,  
+					async: false,
 					success:function(e){
 							console.log(e);
 							console.log(fns(e,0));

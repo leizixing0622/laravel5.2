@@ -93,7 +93,7 @@ CREATE TABLE `organizations` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 /*Data for the table `organizations` */
 
@@ -149,7 +149,7 @@ CREATE TABLE `permission_role` (
 
 /*Data for the table `permission_role` */
 
-insert  into `permission_role`(`permission_id`,`role_id`,`created_at`,`updated_at`) values (1,9,NULL,NULL),(2,9,NULL,NULL),(3,9,NULL,NULL),(33,9,NULL,NULL),(34,8,NULL,NULL),(35,8,NULL,NULL),(36,8,NULL,NULL),(37,8,NULL,NULL),(38,8,NULL,NULL),(39,8,NULL,NULL),(40,8,NULL,NULL),(41,8,NULL,NULL),(44,8,NULL,NULL);
+insert  into `permission_role`(`permission_id`,`role_id`,`created_at`,`updated_at`) values (0,9,'2017-02-23 08:55:45','2017-02-23 08:55:45'),(1,9,'2017-02-23 09:47:02','2017-02-23 09:47:02'),(2,9,'2017-02-23 09:47:02','2017-02-23 09:47:02'),(3,9,'2017-02-23 09:47:02','2017-02-23 09:47:02'),(36,9,'2017-02-23 08:55:45','2017-02-23 08:55:45'),(37,9,'2017-02-23 08:55:45','2017-02-23 08:55:45'),(38,9,'2017-02-23 08:55:46','2017-02-23 08:55:46'),(39,9,'2017-02-23 08:55:46','2017-02-23 08:55:46'),(40,9,'2017-02-23 08:55:46','2017-02-23 08:55:46'),(44,9,'2017-02-23 08:55:46','2017-02-23 08:55:46');
 
 /*Table structure for table `permissions` */
 

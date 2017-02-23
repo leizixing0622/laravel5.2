@@ -28,7 +28,7 @@
 	<script type="text/javascript" src="{{ asset('/js/jquery.multi-select.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/jquery.ztree.excheck.js') }}"></script>
 	<!-- Fonts -->
-	
+
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -51,15 +51,12 @@
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">
-					<li><a href="{{ asset('') }}">返回前台</a></li>
-					<li><a href="{{ asset('admin/index') }}">组织管理</a></li>
-					<li><a href="{{ asset('admin/user/index') }}">用户管理</a></li>
-					<li><a href="{{ asset('admin/permission/index') }}">菜单管理</a></li>
-					<li><a href="{{ asset('admin/role/index') }}">角色管理</a></li>
+				<ul class="nav navbar-nav navbar-nav1">
+
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
+					<li><a href="{{ asset('') }}">返回前台</a></li>
 					<!-- Authentication Links -->
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
@@ -89,4 +86,21 @@
 
 	@yield('content')
 </body>
+<script type="text/javascript">
+	$(function(){
+		$.ajax(
+			{
+    			url: '{{ URL("index/permission/all") }}',
+				type: 'GET',
+				async: false,
+				success:function(e){
+						$(".navbar-nav1").html(sf(fns(e,36)));
+					},
+				error:function(msg){
+						console.log(msg.responseText);
+					}
+    		}
+		);
+	})
+</script>
 </html>
