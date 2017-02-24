@@ -16,3 +16,6 @@ a:hover{
     height:460px;
     overflow:auto;
 }
+table tbody tr td:hover{
+    cursor:pointer;
+}

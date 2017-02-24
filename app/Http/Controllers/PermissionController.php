@@ -30,6 +30,11 @@ class PermissionController extends Controller
     	return $result;
     }
 
+    public function findById($id){
+        $result = Permission::find($id);
+        return response()->json($result);
+    }
+
     public function store($id,$name){
     	$permission = new Permission;
     	$permission -> pid = $id;
@@ -58,5 +63,19 @@ class PermissionController extends Controller
     	}else{
     		return "error";
     	};
+    }
+
+    public function updateDetail(Request $request, $id){
+        $permission = Permission::find($id);
+        $permission->name = $request->get('name');
+        $permission->display_name = $request->get('display_name');
+        $permission->url = $request->get('url');
+        $permission->description = $request->get('description');
+        $permission->type = $request->get('type');
+        if($permission->update()){
+            return response()->json($permission);
+        }else{
+            return array('data'=>'error');
+        };
     }
 }

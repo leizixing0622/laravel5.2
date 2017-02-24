@@ -6,7 +6,7 @@
         <div class="col-md-4 col-md-offset-4" style="padding:100px 30px 0;">
             <div class="panel panel-success" style="box-shadow:2px 2px 4px 4px #ccc;">
                 <div class="panel-heading" style="color:#fff;font-size:18px;">登录</div>
-                <div class="panel-body">
+                <div class="panel-body" style="height:auto;">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {!! csrf_field() !!}
 

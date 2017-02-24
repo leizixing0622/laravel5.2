@@ -22,8 +22,10 @@ Route::group(['middleware' => 'web','getpermission'], function () {
     //权限有关的路由
     Route::get('admin/permission/index',['as'=>'admin.permission.index','uses'=>'PermissionController@index']) ;
     Route::get('admin/permission/all',['as'=>'admin.permission.all','uses'=>'PermissionController@all']) ;
+    Route::get('admin/permission/findById/{id}',['as'=>'admin.permission.findById','uses'=>'PermissionController@findById']) ;
     Route::get('admin/permission/store/{id}/{name}',['as'=>'admin.permission.create','uses'=>'PermissionController@store']) ;
     Route::post('admin/permission/update/{id}/{name}',['as'=>'admin.permission.update','uses'=>'PermissionController@update']) ;
+    Route::post('admin/permission/updateDetail/{id}',['as'=>'admin.permission.updateDetail','uses'=>'PermissionController@updateDetail']) ;
     Route::get('admin/permission/delete/{id}',['as'=>'admin.permission.delete','uses'=>'PermissionController@delete']) ;
     //角色有关路由
     Route::get('admin/role/index',['as'=>'admin.role.index','uses'=>'RoleController@index']) ;
@@ -42,6 +44,12 @@ Route::group(['middleware' => 'web','getpermission'], function () {
 	Route::get('admin/role-permission/all-roles',['as'=>'admin.rolePermission.allRoles','uses'=>'RolePermissionController@allRoles']);
 	Route::get('admin/role-permission/find-by-role/{id}',['as'=>'admin.rolePermission.findByRole','uses'=>'RolePermissionController@findByRole']);
 	Route::post('admin/role-permission/store-by-role/{id}',['as'=>'admin.rolePermission.storeByRole','uses'=>'RolePermissionController@storeByRole']);
+    //用户角色分配
+    Route::get('admin/user-role/index',['as'=>'admin.userRole.index','uses'=>'UserRoleController@index']);
+    Route::get('admin/user-role/all-users',['as'=>'admin.userRole.allUsers','uses'=>'UserRoleController@allUsers']);
+    Route::get('admin/user-role/all-roles',['as'=>'admin.userRole.allRoles','uses'=>'UserRoleController@allRoles']);
+    Route::get('admin/user-role/find-by-user/{id}',['as'=>'admin.userRole.findByUser','uses'=>'UserRoleController@findByUser']);
+    Route::post('admin/user-role/store-by-user/{id}',['as'=>'admin.userRole.storeByUser','uses'=>'UserRoleController@storeByUser']);
 });
 //没有权限跳转
 Route::get('/illegal', ['as'=>'illegal',function(){

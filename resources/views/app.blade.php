@@ -13,7 +13,7 @@
 	<link href="{{ asset('/css/zTreeStyle/zTreeStyle.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/toastr.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/common.css') }}" rel="stylesheet">
-	<link href="{{ asset('/css/multi-select.css') }}" rel="stylesheet">
+	<link href="{{ asset('/css/select2.css') }}" rel="stylesheet">
 	<script type="text/javascript" src="{{ asset('/js/jquery.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/bootstrap.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/jquery.dataTables.min.js') }}"></script>
@@ -22,11 +22,11 @@
 	<script type="text/javascript" src="{{ asset('/js/jquery.ztree.all.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/jquery.ztree.core.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/jquery.ztree.exedit.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/js/jquery.ztree.excheck.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/toastr.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/jquery.validate.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/messages_zh.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('/js/jquery.multi-select.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('/js/jquery.ztree.excheck.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/js/select2.full.js') }}"></script>
 	<!-- Fonts -->
 
 
