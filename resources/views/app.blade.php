@@ -69,6 +69,9 @@
 	                			@endforeach
 	                    	</select>
 	                    </li>
+	                    <li style="padding-top:4px;padding-left:20px;">
+	                    	<img class="img-circle" src="{{ asset('/uploadfiles/avatar').'/'.Auth::user()->avatar->filename }}" alt="" height="40px" width="40px">
+	                    </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>

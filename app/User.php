@@ -23,11 +23,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    
+
     public function organizations() {
     	return $this->belongsToMany('App\Organization')->withTimestamps();
     }
     public function roles() {
     	return $this->belongsToMany('App\Role')->withTimestamps();
+    }
+    public function avatar(){
+        return $this->hasOne('App\File', 'user_id', 'id');
     }
 }
